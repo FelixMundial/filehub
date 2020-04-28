@@ -30,8 +30,5 @@ build/
 ### VS Code ###
 .vscode/
 
-**/src/main/resources/application.yml
-**/src/main/resources/bootstrap.properties
-
-/service-comment/**
-/service-file/**
+/src/main/java/com/example/filehub/service/uaa/key/**
+/src/main/java/com/example/filehub/service/uaa/security/config/RsaKeyConfiguration.java

@@ -26,7 +26,7 @@ public class JsonUtils {
         try {
             objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
             /*
-            可对对象对级联属性进行解析
+            可对对象级联属性进行解析
              */
             dto = objectMapper.readValue(string, clazz);
         } catch (JsonProcessingException e) {

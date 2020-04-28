@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: user-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: [NACOS-IP]:8848
+        enabled: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://[MYSQL-IP]:3306/filehub?characterEncoding=utf-8&amp&serverTimezone=UTC&amp&useSSL=false
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.filehub.commons.service.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+server:
+  port: 18080
+  servlet:
+    context-path: /library
+
+logging:
+  level:
+    com.example.filehub: debug

@@ -7,31 +7,31 @@
         <artifactId>filehub</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>service-library</artifactId>
+    <artifactId>service-gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>service-library</name>
-    <description>Library Service</description>
+    <name>service-gateway</name>
+    <description>Gateway</description>
 
     <dependencies>
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>2.1.5</version>
-        </dependency>
 <!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-data-jpa</artifactId>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-gateway</artifactId>-->
 <!--        </dependency>-->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.example.filehub</groupId>
             <artifactId>commons-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-slf4j-impl</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

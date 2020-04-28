@@ -7,21 +7,21 @@
         <artifactId>filehub</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>service-library</artifactId>
+    <artifactId>service-uaa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>service-library</name>
-    <description>Library Service</description>
+    <name>service-uaa</name>
+    <description>UAA Service</description>
 
     <dependencies>
         <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>2.1.5</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-data-jpa</artifactId>-->
-<!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

@@ -13,18 +13,19 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 /**
+ * @deprecated
  * @author yinfelix
  * @date 2020/3/8
  */
 public class RsaUtils {
     public static final int DEFAULT_KEY_SIZE = 2048;
 
-    public static PublicKey getPublicKey(String filename) {
+    public static PublicKey getPublicKeyFromFile(String filename) {
         byte[] bytes = readFile(filename);
         return getPublicKey(bytes);
     }
 
-    public static PrivateKey getPrivateKey(String filename) {
+    public static PrivateKey getPrivateKeyFromFile(String filename) {
         byte[] bytes = readFile(filename);
         return getPrivateKey(bytes);
     }

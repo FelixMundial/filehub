@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: uaa-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: [NACOS-IP]:8848
+        enabled: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://[MYSQL-IP]:3306/filehub?characterEncoding=utf-8&amp&serverTimezone=UTC&amp&useSSL=false
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+
+server:
+  port: 18080
+  servlet:
+    context-path: /uaa
+
+logging:
+  level:
+    com.example.filehub: debug
+
+#rsa.key.pub=[PUBLIC_KEY_LOCATION]
+#rsa.key=[PRIVATE_KEY_LOCATION]
