@@ -6,10 +6,9 @@ import Axios from "axios";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 
-// Axios.defaults.baseURL = "http://localhost:18080";
 Vue.prototype.axios = Axios.create({
-  // baseURL: "http://localhost:18080",
-  baseURL: "http://localhost:18010",
+  baseURL: "http://localhost:7000",
+  withCredentials: true,
   timeout: 15000
 });
 

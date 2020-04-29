@@ -68,6 +68,7 @@
 // @ is an alias to /src
 import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
+import loading from "../element/loading";
 
 export default {
   name: "Welcome",
@@ -90,17 +91,23 @@ export default {
   methods: {
     login() {
       this.axios
-        .post("/login", {
+        .post("/uaa/login", {
           userLoginName: this.loginInfo.loginName,
           userLoginPassword: this.loginInfo.loginPassword
         })
         .then(validResponse => {
+          // console.log(validResponse);
           this.responseResult = validResponse.data;
           // console.log(this.responseResult);
           if (this.responseResult.statusCode === 200) {
-            sessionStorage.setItem("token", "token111");
-            // sessionStorage.setItem("uid", this.responseResult.data.userId);
-            // console.log(sessionStorage.getItem("token"));
+            let token = this.responseResult.data.token;
+
+            // console.log(token);
+            if (token) {
+              sessionStorage.setItem("token", token);
+            } else {
+              sessionStorage.removeItem("token");
+            }
             this.$message.success(this.responseResult.message);
             let redirect = this.$route.query.redirect;
             // console.log(redirect);
@@ -115,15 +122,13 @@ export default {
           }
         })
         .catch(invalidResponse => {
-          this.responseResult = invalidResponse;
-          // console.error(this.responseResult.message);
+          console.log(invalidResponse);
           this.$message.error("服务暂时不可用，请稍后再试...");
         });
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          // sessionStorage.setItem("isLoggedIn", "true");
           // this.$store.dispatch("updateUserInfo", this.loginStateField);
 
           let loading;

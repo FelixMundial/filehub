@@ -55,12 +55,16 @@ export default {
       }
     );
     this.axios
-      .get("/libraries/explore/top")
+      .get("/library/explore/top", {
+        //  params:{ key: value },
+        headers: {
+          Authorization: sessionStorage.token
+        }
+      })
       .then(validResponse => {
         // console.log(validResponse);
-        if (validResponse.status === 200) {
-          // this.libraries = validResponse.data;
-          validResponse.data.forEach(item => {
+        if (validResponse.data.statusCode === 200) {
+          validResponse.data.data.forEach(item => {
             this.library.libraryName = item.libraryName;
             this.library.libraryDesc = item.libraryDesc;
             this.library.ownerName = item.ownerUid;
@@ -72,11 +76,13 @@ export default {
             this.libraries.push(this.library);
             this.library = {};
           });
+        } else {
+          this.$message.error(validResponse.data.message);
         }
       })
-      // eslint-disable-next-line no-unused-vars
       .catch(invalidResponse => {
-        // console.log(invalidResponse);
+        console.log(invalidResponse);
+        this.$message.error("服务暂时不可用，请稍后再试...");
       });
   },
   methods: {}

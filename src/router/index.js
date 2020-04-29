@@ -46,7 +46,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requireAuth)) {
     // 判断该路由是否需要登录权限
-    console.log("检查登录状态...");
+    // console.log("检查登录状态...");
     if (sessionStorage.token) {
       // 判断登录存入的token是否存在
       console.log("已登录!");
