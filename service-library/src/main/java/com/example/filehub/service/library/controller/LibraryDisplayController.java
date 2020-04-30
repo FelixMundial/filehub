@@ -1,9 +1,7 @@
 package com.example.filehub.service.library.controller;
 
-import com.example.filehub.commons.service.dto.BaseResult;
-import com.example.filehub.commons.service.dto.factory.BaseResultFactory;
-import com.example.filehub.commons.service.entity.File;
-import com.example.filehub.commons.service.entity.Library;
+import com.example.filehub.commons.service.global.dto.BaseResult;
+import com.example.filehub.commons.service.global.dto.factory.BaseResultFactory;
 import com.example.filehub.service.library.service.LibraryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import io.swagger.annotations.*;
 
@@ -30,7 +27,7 @@ public class LibraryDisplayController {
 
     @ApiImplicitParams(value = {})
     @ApiOperation("展示最热项目")
-    @PreAuthorize("hasAnyAuthority('role_admin0', 'role_admin', 'role_vip', 'role_guest')")
+    @PreAuthorize("hasAnyAuthority('role_admin0', 'role_admin', 'role_user', 'role_guest')")
     @GetMapping("/explore/top")
     public BaseResult displayTopLibraries() {
         return BaseResultFactory.getSuccessResult(

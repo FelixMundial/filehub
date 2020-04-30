@@ -1,6 +1,6 @@
 package com.example.filehub.service.uaa.security.filter;
 
-import com.example.filehub.commons.service.entity.UserAccountInfo;
+import com.example.filehub.commons.service.entity.user.UserAccountInfo;
 import com.example.filehub.commons.service.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,14 +1,13 @@
 package com.example.filehub.service.uaa.security.handler;
 
-import com.example.filehub.commons.service.dto.BaseResult;
-import com.example.filehub.commons.service.dto.factory.BaseResultFactory;
+import com.example.filehub.commons.service.global.dto.BaseResult;
+import com.example.filehub.commons.service.global.dto.factory.BaseResultFactory;
 import com.example.filehub.commons.service.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 

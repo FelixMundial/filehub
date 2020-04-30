@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
  * @author yinfelix
  * @date 2020/4/24
  */
-//@EnableOAuth2Sso
+//@EnableOAuth2Sso //SSO跳转暂时由vue-router接管
 @EnableResourceServer // 当不需要网关协助进行SSO时，网关须标记为资源服务器
 @Configuration
 public class GatewayResourceServerConfiguration extends ResourceServerConfigurerAdapter {

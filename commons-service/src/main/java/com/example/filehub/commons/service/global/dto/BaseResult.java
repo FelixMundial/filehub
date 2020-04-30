@@ -1,4 +1,4 @@
-package com.example.filehub.commons.service.dto;
+package com.example.filehub.commons.service.global.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

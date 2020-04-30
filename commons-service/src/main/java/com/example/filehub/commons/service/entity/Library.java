@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import javax.persistence.*;
 
+import com.example.filehub.commons.service.entity.user.UserAccountInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

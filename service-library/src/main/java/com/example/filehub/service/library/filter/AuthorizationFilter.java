@@ -23,19 +23,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @apiNote 由token获取Authentication对象，封装为UsernamePasswordAuthenticationToken对象保存进安全上下文
  * @author yinfelix
+ * @apiNote 由token获取Authentication对象，封装为UsernamePasswordAuthenticationToken对象保存进安全上下文
  * @date 2020/4/24
  */
 @Slf4j
 @Component
-public class ProviderAuthorizationFilter extends OncePerRequestFilter {
+public class AuthorizationFilter extends OncePerRequestFilter {
     private static final ObjectMapper mapper = new ObjectMapper();
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         /*
-        无法直接获取Authentication，须通过token获取
+        无法在资源服务器过滤器中直接获取Authentication，只能通过token获取
          */
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        System.out.println(LocalTime.now() + ": " + authentication.getPrincipal());

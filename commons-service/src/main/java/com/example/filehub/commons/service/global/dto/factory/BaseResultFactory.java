@@ -1,6 +1,6 @@
-package com.example.filehub.commons.service.dto.factory;
+package com.example.filehub.commons.service.global.dto.factory;
 
-import com.example.filehub.commons.service.dto.BaseResult;
+import com.example.filehub.commons.service.global.dto.BaseResult;
 import org.springframework.http.HttpStatus;
 
 /**

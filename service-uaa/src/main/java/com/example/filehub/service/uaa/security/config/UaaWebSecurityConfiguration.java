@@ -30,8 +30,9 @@ public class UaaWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     AuthenticationManager getAuthenticationManager() throws Exception {
         return super.authenticationManagerBean();
     }
+
     @Bean
-    UaaAuthenticationFilter userAuthenticationFilter() throws Exception {
+    UaaAuthenticationFilter uaaAuthenticationFilter() throws Exception {
         return new UaaAuthenticationFilter(getAuthenticationManager());
     }
 
@@ -48,7 +49,7 @@ public class UaaWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable()/*.cors()*/;
 
         http
-                .addFilter(userAuthenticationFilter());
+                .addFilter(uaaAuthenticationFilter());
     }
 
     @Override

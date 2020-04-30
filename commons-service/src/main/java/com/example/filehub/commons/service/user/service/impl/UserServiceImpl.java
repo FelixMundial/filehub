@@ -1,8 +1,10 @@
-package com.example.filehub.service.uaa.service.impl;
+package com.example.filehub.commons.service.user.service.impl;
 
-import com.example.filehub.service.uaa.dao.UserDao;
-import com.example.filehub.commons.service.entity.UserAccountInfo;
-import com.example.filehub.service.uaa.service.UserService;
+import com.example.filehub.commons.service.entity.user.Role;
+import com.example.filehub.commons.service.entity.user.UserAccountInfo;
+import com.example.filehub.commons.service.user.dao.UserDao;
+import com.example.filehub.commons.service.user.service.RoleService;
+import com.example.filehub.commons.service.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,9 +21,11 @@ import java.time.LocalDateTime;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
     @Autowired
-    BCryptPasswordEncoder passwordEncoder;
+    private RoleService roleService;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -35,6 +39,14 @@ public class UserServiceImpl implements UserService {
              */
             String encodedPassword = passwordEncoder.encode(userLoginPassword);
             user = new UserAccountInfo(userLoginName, encodedPassword, creationTime, creationTime);
+
+            /*
+            向新注册用户添加用户权限并更新用户-角色关联表
+             */
+            Role userRole = roleService.getRoleByRoleId(2L);
+            userRole.getUsers().add(user);
+            user.getRoles().add(userRole);
+
             return userDao.saveAndFlush(user);
         }
         return null;
@@ -47,5 +59,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserAccountInfo findUserByLoginNameAndLoginPassword(String userLoginName, String userLoginPassword) {
         return userDao.findByUserLoginNameAndUserLoginPassword(userLoginName, userLoginPassword);
+    }
+
+    @Override
+    public UserAccountInfo findUserById(Long id) {
+        return userDao.findById(id).orElse(null);
+    }
+
+    @Override
+    public UserAccountInfo findUserByLoginName(String userLoginName) {
+        return userDao.findByUserLoginName(userLoginName);
     }
 }

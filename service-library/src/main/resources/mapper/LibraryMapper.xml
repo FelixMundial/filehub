@@ -22,7 +22,7 @@
             <result property="fileCreationUid" column="file_creation_uid" jdbcType="VARCHAR"/>
             <result property="fileUrl" column="file_url" jdbcType="VARCHAR"/>
         </collection>
-        <collection property="collaborators" ofType="com.example.filehub.commons.service.entity.UserAccountInfo"
+        <collection property="collaborators" ofType="com.example.filehub.commons.service.entity.user.UserAccountInfo"
                     javaType="arraylist">
             <id property="userId" column="uid" jdbcType="INTEGER"/>
             <result property="userLoginName" column="login_name" jdbcType="VARCHAR"/>

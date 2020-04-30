@@ -1,6 +1,6 @@
-package com.example.filehub.service.uaa.service;
+package com.example.filehub.commons.service.user.service;
 
-import com.example.filehub.commons.service.entity.UserAccountInfo;
+import com.example.filehub.commons.service.entity.user.UserAccountInfo;
 
 /**
  * @author yinfelix
@@ -15,10 +15,13 @@ public interface UserService {
     UserAccountInfo saveUser(UserAccountInfo user);
 
     /**
-     *
      * @param userLoginName
      * @param userLoginPassword
      * @return UserAuthcInfoVo
      */
     UserAccountInfo findUserByLoginNameAndLoginPassword(String userLoginName, String userLoginPassword);
+
+    UserAccountInfo findUserById(Long id);
+
+    UserAccountInfo findUserByLoginName(String userLoginName);
 }

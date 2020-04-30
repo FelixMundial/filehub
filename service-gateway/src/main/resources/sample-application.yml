@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: [NACOS-IP]:8848
+        enabled: true
+    loadbalancer:
+      retry:
+        enabled: true
+
+server:
+  port: 7000
+
+zuul:
+  sensitiveHeaders:
+  ribbon:
+    eager-load:
+      enabled: true
+  host:
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 120000
+  add-host-header: true
+  routes:
+    uaa-service:
+      path: /uaa/**
+      serviceId: uaa-service
+      stripPrefix: false
+    library-service:
+      path: /library/**
+      serviceId: library-service
+      stripPrefix: false
+
+uaa-server-addr: http://127.0.0.1:18080/uaa
+security:
+  oauth2:
+    client:
+      client-id: client
+      client-secret: secret
+      user-authorization-uri: ${uaa-server-addr}/oauth/authorize
+      access-token-uri: ${uaa-server-addr}/oauth/token
+    resource:
+      token-info-uri: ${uaa-server-addr}/oauth/check_token
+      jwt:
+        key-uri: ${uaa-server-addr}/oauth/token_key
+
+logging:
+  level:
+    com.example.filehub.service.gateway: debug

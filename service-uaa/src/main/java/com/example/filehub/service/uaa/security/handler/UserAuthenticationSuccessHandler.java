@@ -1,29 +1,22 @@
 package com.example.filehub.service.uaa.security.handler;
 
-import com.example.filehub.commons.service.dto.BaseResult;
-import com.example.filehub.commons.service.dto.factory.BaseResultFactory;
+import com.example.filehub.commons.service.global.dto.BaseResult;
+import com.example.filehub.commons.service.global.dto.factory.BaseResultFactory;
 import com.example.filehub.commons.service.util.JsonUtils;
 import com.example.filehub.service.uaa.security.entity.SecurityUser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
 import org.springframework.security.oauth2.provider.*;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
@@ -33,8 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalTime;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,12 +99,7 @@ public class UserAuthenticationSuccessHandler extends SavedRequestAwareAuthentic
 //            token.put("token_type", oAuth2AuthenticationDetails.getTokenType());
 //            token.put("token", oAuth2AuthenticationDetails.getTokenValue());
 
-            ObjectMapper mapper = new ObjectMapper();
-            try {
-                encodedToken = Base64Utils.encodeToString(mapper.writeValueAsString(token).getBytes());
-            } catch (JsonProcessingException e) {
-                log.error("", e);
-            }
+            encodedToken = Base64Utils.encodeToString(JsonUtils.getJsonStringFromObjectIgnoresNull(token).getBytes());
         }
 
         SecurityUser securityUser = ((SecurityUser) authentication.getPrincipal());
@@ -126,7 +112,7 @@ public class UserAuthenticationSuccessHandler extends SavedRequestAwareAuthentic
 
         try {
             PrintWriter writer = response.getWriter();
-            writer.write(JsonUtils.getJsonStringFromObject(successResult));
+            writer.write(JsonUtils.getJsonStringFromObjectIgnoresNull(successResult));
             writer.flush();
             writer.close();
         } catch (IOException e) {

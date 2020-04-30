@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
  * @author yinfelix
  * @date 2020/4/22
  */
-@Configuration
+//@Configuration
 public class JwtConfiguration {
     /*
     暂时采用对称加密（应以端点形式配置在配置文件中）

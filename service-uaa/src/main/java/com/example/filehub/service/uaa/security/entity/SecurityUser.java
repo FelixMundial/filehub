@@ -1,17 +1,23 @@
 package com.example.filehub.service.uaa.security.entity;
 
-import com.example.filehub.commons.service.entity.UserAccountInfo;
+import com.example.filehub.commons.service.entity.user.Role;
+import com.example.filehub.commons.service.entity.user.UserAccountInfo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * @deprecated 直接在UserDetailsServiceImpl中构造User对象即可
  * @author yinfelix
  * @date 2020/4/16
  */
@@ -23,20 +29,19 @@ public class SecurityUser implements UserDetails {
      */
     private transient UserAccountInfo currentUser;
 
-    public SecurityUser() {}
+    public SecurityUser() {
+    }
 
     public SecurityUser(UserAccountInfo user) {
-        if (user != null) {
-            this.currentUser = user;
-        }
+        this.currentUser = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("role_admin0");
-        authorities.add(authority);
-        return authorities;
+        return this.currentUser.getRoles().stream()
+                .map(Role::getCode)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
