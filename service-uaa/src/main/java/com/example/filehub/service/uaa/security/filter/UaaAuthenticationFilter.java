@@ -1,7 +1,7 @@
 package com.example.filehub.service.uaa.security.filter;
 
 import com.example.filehub.commons.service.entity.user.UserAccountInfo;
-import com.example.filehub.commons.service.util.JsonUtils;
+import com.example.filehub.commons.service.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,7 +43,7 @@ public class UaaAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private UserAccountInfo retrieveUser(HttpServletRequest request) {
         if (this.user == null) {
             try {
-                user = JsonUtils.getPojoFromInputStream(request.getInputStream(), UserAccountInfo.class);
+                user = JsonUtil.getPojoFromInputStream(request.getInputStream(), UserAccountInfo.class);
                 if (user == null) {
                     logger.error("retrieveUser(): User cannot be found in request.");
                 }

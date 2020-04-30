@@ -2,7 +2,7 @@ package com.example.filehub.service.uaa.security.handler;
 
 import com.example.filehub.commons.service.global.dto.BaseResult;
 import com.example.filehub.commons.service.global.dto.factory.BaseResultFactory;
-import com.example.filehub.commons.service.util.JsonUtils;
+import com.example.filehub.commons.service.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.*;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static com.example.filehub.commons.service.util.Constants.CONTENT_TYPE_JSON;
+import static com.example.filehub.commons.service.constant.MiscConstant.CONTENT_TYPE_JSON;
 
 /**
  * @author yinfelix
@@ -55,7 +55,7 @@ public class UserAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
 
         try {
             PrintWriter writer = response.getWriter();
-            writer.write(JsonUtils.getJsonStringFromObject(failureResult));
+            writer.write(JsonUtil.getJsonStringFromObject(failureResult));
             writer.flush();
             writer.close();
         } catch (IOException e) {

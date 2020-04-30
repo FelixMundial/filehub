@@ -3,7 +3,7 @@ package com.example.filehub.service.uaa.controller;
 import com.example.filehub.commons.service.global.dto.BaseResult;
 import com.example.filehub.commons.service.global.dto.factory.BaseResultFactory;
 import com.example.filehub.commons.service.entity.user.UserAccountInfo;
-import com.example.filehub.commons.service.user.service.UserService;
+import com.example.filehub.service.uaa.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

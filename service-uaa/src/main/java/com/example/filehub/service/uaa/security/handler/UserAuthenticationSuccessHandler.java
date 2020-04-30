@@ -2,7 +2,7 @@ package com.example.filehub.service.uaa.security.handler;
 
 import com.example.filehub.commons.service.global.dto.BaseResult;
 import com.example.filehub.commons.service.global.dto.factory.BaseResultFactory;
-import com.example.filehub.commons.service.util.JsonUtils;
+import com.example.filehub.commons.service.util.JsonUtil;
 import com.example.filehub.service.uaa.security.entity.SecurityUser;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.example.filehub.commons.service.util.Constants.CONTENT_TYPE_JSON;
+import static com.example.filehub.commons.service.constant.MiscConstant.CONTENT_TYPE_JSON;
 
 /**
  * @author yinfelix
@@ -99,7 +99,7 @@ public class UserAuthenticationSuccessHandler extends SavedRequestAwareAuthentic
 //            token.put("token_type", oAuth2AuthenticationDetails.getTokenType());
 //            token.put("token", oAuth2AuthenticationDetails.getTokenValue());
 
-            encodedToken = Base64Utils.encodeToString(JsonUtils.getJsonStringFromObjectIgnoresNull(token).getBytes());
+            encodedToken = Base64Utils.encodeToString(JsonUtil.getJsonStringFromObjectIgnoresNull(token).getBytes());
         }
 
         SecurityUser securityUser = ((SecurityUser) authentication.getPrincipal());
@@ -112,7 +112,7 @@ public class UserAuthenticationSuccessHandler extends SavedRequestAwareAuthentic
 
         try {
             PrintWriter writer = response.getWriter();
-            writer.write(JsonUtils.getJsonStringFromObjectIgnoresNull(successResult));
+            writer.write(JsonUtil.getJsonStringFromObjectIgnoresNull(successResult));
             writer.flush();
             writer.close();
         } catch (IOException e) {

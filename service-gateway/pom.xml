@@ -22,9 +22,10 @@
             <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
         </dependency>
 
+<!--    zuul与外层日志实现类冲突    -->
         <dependency>
             <groupId>com.example.filehub</groupId>
-            <artifactId>commons-service</artifactId>
+            <artifactId>commons</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <exclusions>
                 <exclusion>

@@ -4,12 +4,14 @@ import com.example.filehub.service.library.filter.AuthorizationFilter;
 import com.example.filehub.service.library.handler.UserAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -29,6 +31,10 @@ public class LibraryResourceServerConfiguration extends ResourceServerConfigurer
     private AuthorizationFilter authorizationFilter;
 
     @Autowired
+    RequestUrlFilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource;
+    @Autowired
+    RequestUrlAccessDecisionManager accessDecisionManager;
+    @Autowired
     private UserAccessDeniedHandler accessDeniedHandler;
 
     @Override
@@ -36,7 +42,15 @@ public class LibraryResourceServerConfiguration extends ResourceServerConfigurer
         http.authorizeRequests()
 //                .antMatchers("/**")
 //                .access("#oauth2.hasAnyScope('role_admin0', 'role_admin', 'role_user', 'role_guest')")
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(O o) {
+                        o.setSecurityMetadataSource(filterInvocationSecurityMetadataSource);
+                        o.setAccessDecisionManager(accessDecisionManager);
+                        return o;
+                    }
+                });
 
         http.addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class);
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);

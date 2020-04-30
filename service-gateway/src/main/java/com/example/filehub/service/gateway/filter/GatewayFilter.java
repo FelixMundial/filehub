@@ -47,7 +47,8 @@ public class GatewayFilter extends ZuulFilter {
     @Override
     public Object run() {
         /*
-        即使在网关解析token放入安全上下文，资源服务器OncePerRequestFilter中仍无法直接获取Authentication对象
+        即使在网关解析token放入安全上下文，资源服务器OncePerRequestFilter中
+        仍无法直接获取Authentication对象（是否线程隔离？）
          */
 //        final ObjectMapper mapper = new ObjectMapper();
 //

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.example.filehub.commons.service.util.Constants.JWT_KEY_BEARER;
+import static com.example.filehub.commons.service.constant.MiscConstant.JWT_KEY_BEARER;
 
 /**
  * @deprecated 鉴权应在微服务中而非uaa中处理

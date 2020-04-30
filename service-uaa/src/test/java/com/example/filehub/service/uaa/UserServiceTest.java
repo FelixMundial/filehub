@@ -1,6 +1,6 @@
 package com.example.filehub.service.uaa;
 
-import com.example.filehub.commons.service.user.service.UserService;
+import com.example.filehub.service.uaa.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

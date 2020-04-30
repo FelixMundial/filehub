@@ -21,7 +21,7 @@
         <module>service-library</module>
         <module>service-file</module>
         <module>service-comment</module>
-        <module>commons-service</module>
+        <module>commons</module>
     </modules>
 
     <properties>
@@ -30,6 +30,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-cloud-alibaba.version>2.2.0.RELEASE</spring-cloud-alibaba.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+        <mapper-spring-boot-starter.version>2.1.5</mapper-spring-boot-starter.version>
 <!--        <jjwt.version>0.11.0</jjwt.version>-->
         <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
@@ -83,14 +84,20 @@
             </dependency>
 
             <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>${mapper-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-jwt</artifactId>
                 <version>${spring-security-jwt.version}</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>io.jsonwebtoken</groupId>-->
-<!--                <artifactId>jjwt-api</artifactId>-->
-<!--                <version>${jjwt.version}</version>-->
+            <!--            <dependency>-->
+            <!--                <groupId>io.jsonwebtoken</groupId>-->
+            <!--                <artifactId>jjwt-api</artifactId>-->
+            <!--                <version>${jjwt.version}</version>-->
 <!--            </dependency>-->
 <!--            <dependency>-->
 <!--                <groupId>io.jsonwebtoken</groupId>-->

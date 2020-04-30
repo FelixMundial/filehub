@@ -27,7 +27,7 @@ public class LibraryDisplayController {
 
     @ApiImplicitParams(value = {})
     @ApiOperation("展示最热项目")
-    @PreAuthorize("hasAnyAuthority('role_admin0', 'role_admin', 'role_user', 'role_guest')")
+    @PreAuthorize("hasAnyAuthority('role_admin', 'role_user', 'role_guest')")
     @GetMapping("/explore/top")
     public BaseResult displayTopLibraries() {
         return BaseResultFactory.getSuccessResult(
