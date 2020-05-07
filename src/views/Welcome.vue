@@ -3,7 +3,7 @@
     <el-header>
       <main-header />
     </el-header>
-    <el-main>
+    <el-main class="global-container">
       <el-form
         :model="loginInfo"
         :rules="loginRule"
@@ -68,7 +68,6 @@
 // @ is an alias to /src
 import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
-import loading from "../element/loading";
 
 export default {
   name: "Welcome",
@@ -91,81 +90,36 @@ export default {
   methods: {
     login() {
       this.axios
-        .post("/uaa/login", {
-          userLoginName: this.loginInfo.loginName,
-          userLoginPassword: this.loginInfo.loginPassword
-        })
-        .then(validResponse => {
-          // console.log(validResponse);
-          this.responseResult = validResponse.data;
-          // console.log(this.responseResult);
-          if (this.responseResult.statusCode === 200) {
-            let token = this.responseResult.data.token;
-
-            // console.log(token);
-            if (token) {
-              sessionStorage.setItem("token", token);
-            } else {
-              sessionStorage.removeItem("token");
+        .post(
+          "/uaa/login",
+          {
+            userLoginName: this.loginInfo.loginName,
+            userLoginPassword: this.loginInfo.loginPassword
+          },
+          {
+            headers: {
+              loadingText: "登录中，请稍候...",
+              loadingBackgroundColor: "rgba(150, 150, 150, 0.5)"
             }
+          }
+        )
+        .then(validResponse => {
+          this.responseResult = validResponse.data;
+          if (this.responseResult.statusCode === 200) {
             this.$message.success(this.responseResult.message);
             let redirect = this.$route.query.redirect;
-            // console.log(redirect);
             if (redirect) {
-              // this.$router.replace({ path: "/home" });
               this.$router.push(redirect);
             } else {
               this.$router.replace({ path: "/home" });
             }
-          } else {
-            this.$message.error(this.responseResult.message);
           }
-        })
-        .catch(invalidResponse => {
-          console.log(invalidResponse);
-          this.$message.error("服务暂时不可用，请稍后再试...");
         });
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
           // this.$store.dispatch("updateUserInfo", this.loginStateField);
-
-          let loading;
-          this.axios.interceptors.request.use(
-            request => {
-              loading = this.$loading({
-                lock: true,
-                text: "登录中...请稍候...",
-                background: "rgba(0, 0, 0, 0.7)"
-              });
-              return request;
-            },
-            err => {
-              return Promise.reject(err);
-            }
-          );
-          this.axios.interceptors.response.use(
-            response => {
-              setTimeout(() => {
-                loading.close();
-              }, 1000);
-              return response;
-            },
-            err => {
-              setTimeout(() => {
-                loading.close();
-              }, 600);
-              // if (err && err.response) {
-              //   console.log(err.response.status);
-              // } else {
-              //   err.message = "连接服务器失败!";
-              // }
-              // console.error(err.message);
-              return Promise.reject(err);
-            }
-          );
-
           this.login();
         } else {
           this.$message.error("用户名或密码不合要求！");
@@ -199,7 +153,6 @@ export default {
 .welcome-container
   width 95%
   margin 0 auto
-  min-height 800px
 .registration-form
   width 30%
   margin 2rem auto

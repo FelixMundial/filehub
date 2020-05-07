@@ -14,6 +14,9 @@ const routes = [
   {
     path: "/register",
     name: "Registration",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "registration" */ "../views/Registration.vue")
   },
@@ -31,9 +34,6 @@ const routes = [
     meta: {
       requireAuth: true
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   }
@@ -54,7 +54,8 @@ router.beforeEach((to, from, next) => {
     } else {
       next({
         path: "/",
-        query: { redirect: to.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
+        /* 跳转回认证页面，并将目标路由的url路径保存在query中 */
+        query: { redirect: to.fullPath }
       });
     }
   } else {

@@ -3,7 +3,7 @@
     <el-header>
       <main-header />
     </el-header>
-    <el-main>
+    <el-main class="global-container">
       <el-form
         :model="loginInfo"
         :rules="registrationRule"
@@ -57,6 +57,7 @@
 <script>
 import MainFooter from "../components/MainFooter";
 import MainHeader from "../components/MainHeader";
+
 export default {
   name: "Registration",
   components: { MainHeader, MainFooter },
@@ -83,62 +84,30 @@ export default {
   methods: {
     register() {
       this.axios
-        .post("/register", {
-          userLoginName: this.loginInfo.loginName,
-          userLoginPassword: this.loginInfo.loginPassword
-        })
+        .post(
+          "/uaa/register",
+          {
+            userLoginName: this.loginInfo.loginName,
+            userLoginPassword: this.loginInfo.loginPassword
+          },
+          {
+            headers: {
+              loadingText: "用户注册中，请稍事休息..."
+            }
+          }
+        )
         .then(validResponse => {
           this.responseResult = validResponse.data;
           if (this.responseResult.statusCode === 200) {
-            sessionStorage.setItem("token", "token111");
             this.$message.success(this.responseResult.message);
-            let redirect = this.$route.query.redirect;
-            if (redirect) {
-              this.$router.push(redirect);
-            } else {
-              this.$router.push({ name: "/" });
-            }
-          } else {
-            this.$message.error(this.responseResult.message);
+            // 注册成功，直接进入首页（需要自动进行登陆）
+            this.$router.push({ name: "/home" });
           }
-        })
-        .catch(invalidResponse => {
-          this.responseResult = invalidResponse;
-          this.$message.error("服务暂时不可用，请稍后再试...");
         });
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          let loading;
-          this.axios.interceptors.request.use(
-            request => {
-              loading = this.$loading({
-                lock: true,
-                text: "用户注册中...请稍候...",
-                background: "rgba(0, 0, 0, 0.7)"
-              });
-              return request;
-            },
-            err => {
-              return Promise.reject(err);
-            }
-          );
-          this.axios.interceptors.response.use(
-            response => {
-              setTimeout(() => {
-                loading.close();
-              }, 1000);
-              return response;
-            },
-            err => {
-              setTimeout(() => {
-                loading.close();
-              }, 600);
-              return Promise.reject(err);
-            }
-          );
-
           this.register();
         } else {
           this.$message.error("用户名或密码不合要求！");
@@ -157,7 +126,6 @@ export default {
 .welcome-container
   width 95%
   margin 0 auto
-  min-height 800px
 .registration-form
   width 30%
   margin 2rem auto
