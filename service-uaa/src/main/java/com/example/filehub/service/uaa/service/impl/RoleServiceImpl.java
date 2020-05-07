@@ -1,8 +1,8 @@
 package com.example.filehub.service.uaa.service.impl;
 
-import com.example.filehub.commons.service.entity.user.Permission;
-import com.example.filehub.commons.service.entity.user.Role;
-import com.example.filehub.commons.service.entity.user.UserAccountInfo;
+import com.example.filehub.commons.entity.user.Permission;
+import com.example.filehub.commons.entity.user.Role;
+import com.example.filehub.commons.entity.user.UserAccountInfo;
 import com.example.filehub.service.uaa.dao.PermissionDao;
 import com.example.filehub.service.uaa.dao.RoleDao;
 import com.example.filehub.service.uaa.dao.UserDao;

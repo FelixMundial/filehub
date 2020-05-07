@@ -19,7 +19,7 @@ mybatis:
     map-underscore-to-camel-case: true
 
 server:
-  port: 18080
+  port: 18010
   servlet:
     context-path: /library
 

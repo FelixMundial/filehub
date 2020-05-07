@@ -1,20 +1,20 @@
 package com.example.filehub.service.library.service.impl;
 
-import com.example.filehub.commons.service.entity.File;
-import com.example.filehub.commons.service.entity.Library;
-import com.example.filehub.service.library.dao.LibraryMapper;
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-
+import com.example.filehub.commons.entity.File;
+import com.example.filehub.commons.entity.Library;
 import com.example.filehub.service.library.dao.FileMapper;
+import com.example.filehub.service.library.dao.LibraryMapper;
 import com.example.filehub.service.library.service.FileService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDateTime;
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class FileServiceImpl implements FileService{
     @Resource
@@ -24,16 +24,14 @@ public class FileServiceImpl implements FileService{
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int upload(File file, Long fileUploaderUid, Long libraryId) {
-//        OSS
-        int flag = 0;
-        final String fileDisplayName = file.getFileDisplayName();
-        final String fileDesc = file.getFileDesc();
-        final String fileType = file.getFileType();
-        if (!StringUtils.isEmpty(fileDisplayName) && !StringUtils.isEmpty(fileType)) {
+    public int saveUploadedFileInfo(File file, Long fileUploaderUid, Long libraryId) {
+        int mapperFlag;
+        if (!StringUtils.isEmpty(file.getFileDisplayName()) && !StringUtils.isEmpty(file.getFileUrl())) {
             final Library library = libraryMapper.selectByPrimaryKey(libraryId);
-            final LocalDateTime uploadTime = LocalDateTime.now();
-            file = new File(fileDisplayName, fileDesc, fileType, fileUploaderUid, uploadTime);
+            if (file.getFileCreationUid() == null) {
+                file.setFileCreationUid(fileUploaderUid);
+            }
+            file.setFileLastUpdateUid(fileUploaderUid);
 
             List<Library> parentLibraries = file.getParentLibraries();
             if (parentLibraries == null || parentLibraries.isEmpty()) {
@@ -42,18 +40,12 @@ public class FileServiceImpl implements FileService{
             parentLibraries.add(library);
             file.setParentLibraries(parentLibraries);
         }
-        flag = fileMapper.insertSelective(file);
+        log.debug("Saving file: {} in library {}", file, libraryId);
+        mapperFlag = fileMapper.insertSelective(file);
 
-        if (flag != 0) {
-            flag = fileMapper.insertLibraryFileRelationship(libraryId, file.getFileId());
+        if (mapperFlag != 0) {
+            mapperFlag = fileMapper.insertLibraryFileRelationship(libraryId, file.getFileId());
         }
-        return flag;
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public int download(String fileUrl, Long fileDownloaderUid) {
-//        OSS
-        return 0;
+        return mapperFlag;
     }
 }

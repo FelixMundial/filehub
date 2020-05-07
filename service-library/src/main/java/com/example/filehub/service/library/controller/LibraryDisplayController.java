@@ -1,9 +1,8 @@
 package com.example.filehub.service.library.controller;
 
-import com.example.filehub.commons.service.global.dto.BaseResult;
-import com.example.filehub.commons.service.global.dto.factory.BaseResultFactory;
+import com.example.filehub.commons.global.dto.BaseResult;
+import com.example.filehub.commons.global.dto.factory.BaseResultFactory;
 import com.example.filehub.service.library.service.LibraryService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +17,11 @@ import io.swagger.annotations.*;
  */
 @Api(value = "首页项目库展示")
 //@CrossOrigin
-@Slf4j
 @RestController
-//@RequestMapping(value = "/libraries")
+//@RequestMapping(value = "/library")
 public class LibraryDisplayController {
     @Autowired
-    LibraryService libraryService;
+    private LibraryService libraryService;
 
     @ApiImplicitParams(value = {})
     @ApiOperation("展示最热项目")
@@ -58,7 +56,7 @@ public class LibraryDisplayController {
     @ApiImplicitParams(value = {@ApiImplicitParam(name = "libraryId", value = "项目ID", dataType = "java.lang.Long")})
     @ApiOperation("展示指定项目内所有文件")
     @PreAuthorize("hasAnyAuthority('role_admin0', 'role_admin', 'role_vip')")
-    @GetMapping("/{libraryId}")
+    @GetMapping("/{libraryId}/files")
     public BaseResult displayFilesInLibrary(@PathVariable("libraryId") Long libraryId) {
         return BaseResultFactory.getSuccessResult(
                 libraryService.findAllFilesByLibrary(libraryId)

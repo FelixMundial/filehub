@@ -1,9 +1,10 @@
 package com.example.filehub.service.library.service.impl;
 
-import com.example.filehub.commons.service.entity.File;
-import com.example.filehub.commons.service.entity.Library;
+import com.example.filehub.commons.entity.File;
+import com.example.filehub.commons.entity.Library;
 import com.example.filehub.service.library.service.LibraryService;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 

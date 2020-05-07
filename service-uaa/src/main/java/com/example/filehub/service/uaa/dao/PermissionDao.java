@@ -1,6 +1,6 @@
 package com.example.filehub.service.uaa.dao;
 
-import com.example.filehub.commons.service.entity.user.Permission;
+import com.example.filehub.commons.entity.user.Permission;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

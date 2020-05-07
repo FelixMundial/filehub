@@ -1,6 +1,6 @@
 package com.example.filehub.service.uaa.service;
 
-import com.example.filehub.commons.service.entity.user.UserAccountInfo;
+import com.example.filehub.commons.entity.user.UserAccountInfo;
 
 /**
  * @author yinfelix

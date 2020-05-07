@@ -1,10 +1,10 @@
 package com.example.filehub.service.library.dao;
 import java.time.LocalDateTime;
 
-import com.example.filehub.commons.service.entity.File;
+import com.example.filehub.commons.entity.File;
 import org.apache.ibatis.annotations.Param;
 
-import com.example.filehub.commons.service.entity.Library;
+import com.example.filehub.commons.entity.Library;
 import com.example.filehub.service.library.dao.base.TkBaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

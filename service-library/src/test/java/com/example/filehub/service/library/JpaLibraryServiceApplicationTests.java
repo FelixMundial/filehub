@@ -1,7 +1,7 @@
 package com.example.filehub.service.library;
 
-import com.example.filehub.commons.service.entity.File;
-import com.example.filehub.commons.service.entity.Library;
+import com.example.filehub.commons.entity.File;
+import com.example.filehub.commons.entity.Library;
 import com.example.filehub.service.library.dao.FileMapper;
 import com.example.filehub.service.library.service.FileService;
 import com.example.filehub.service.library.service.LibraryService;
@@ -60,9 +60,9 @@ class JpaLibraryServiceApplicationTests {
     @Rollback
     @Test
     void saveFilesInLibrary() {
-        fileService.upload(File.createNewFile("Gone with the Wind.txt", "", "text"), 3L, 3L);
-        fileService.upload(File.createNewFile("pom.xml", "", "xml"), 2L, 2L);
-        fileService.upload(File.createNewFile("init.lua", "", "lua"), 2L, 3L);
+        fileService.saveUploadedFileInfo(File.createNewFile("Gone with the Wind.txt", "", "text"), 3L, 3L);
+        fileService.saveUploadedFileInfo(File.createNewFile("pom.xml", "", "xml"), 2L, 2L);
+        fileService.saveUploadedFileInfo(File.createNewFile("init.lua", "", "lua"), 2L, 3L);
     }
 
     @Resource

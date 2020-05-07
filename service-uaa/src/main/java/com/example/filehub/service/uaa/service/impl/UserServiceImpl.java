@@ -1,7 +1,7 @@
 package com.example.filehub.service.uaa.service.impl;
 
-import com.example.filehub.commons.service.entity.user.Role;
-import com.example.filehub.commons.service.entity.user.UserAccountInfo;
+import com.example.filehub.commons.entity.user.Role;
+import com.example.filehub.commons.entity.user.UserAccountInfo;
 import com.example.filehub.service.uaa.dao.UserDao;
 import com.example.filehub.service.uaa.service.RoleService;
 import com.example.filehub.service.uaa.service.UserService;
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
             user = new UserAccountInfo(userLoginName, encodedPassword, creationTime, creationTime);
 
             /*
-            向新注册用户添加用户权限并更新用户-角色关联表
+            向新注册用户添加 USER 权限
              */
             Role userRole = roleService.getRoleByRoleId(2L);
             userRole.getUsers().add(user);

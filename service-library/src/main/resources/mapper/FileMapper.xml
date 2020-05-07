@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.filehub.service.library.dao.FileMapper">
-    <resultMap id="BaseResultMap" type="com.example.filehub.commons.service.entity.File">
+    <resultMap id="BaseResultMap" type="com.example.filehub.commons.entity.File">
         <!--@mbg.generated on Thu Apr 16 14:00:19 CST 2020.-->
         <!--@Table `file`-->
         <id column="file_id" jdbcType="INTEGER" property="fileId"/>
@@ -14,26 +14,41 @@
         <result column="file_type" jdbcType="VARCHAR" property="fileType"/>
         <result column="storage_type" jdbcType="BOOLEAN" property="storageType"/>
         <result column="sync_type" jdbcType="BOOLEAN" property="syncType"/>
+        <result column="file_size" jdbcType="INTEGER" property="fileSize"/>
         <result column="file_creation_time" jdbcType="TIMESTAMP" property="fileCreationTime"/>
         <result column="file_creation_uid" jdbcType="INTEGER" property="fileCreationUid"/>
         <result column="file_last_update_time" jdbcType="TIMESTAMP" property="fileLastUpdateTime"/>
         <result column="file_last_update_uid" jdbcType="INTEGER" property="fileLastUpdateUid"/>
-        <collection property="parentLibraries" ofType="com.example.filehub.commons.service.entity.Library" javaType="arraylist">
+        <collection property="parentLibraries" ofType="com.example.filehub.commons.entity.Library" javaType="arraylist">
             <id property="libraryId" column="library_id" jdbcType="INTEGER"/>
             <id property="libraryName" column="library_name" jdbcType="VARCHAR"/>
-<!--        其他字段按需封装    -->
+            <!--        其他字段按需封装    -->
         </collection>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated on Thu Apr 16 14:00:19 CST 2020.-->
         file_id, file_real_name, file_display_name, file_desc, download_count, file_url,
-        privacy_type, file_type, storage_type, sync_type, file_creation_time, file_creation_uid,
+        privacy_type, file_type, storage_type, sync_type, file_size, file_creation_time, file_creation_uid,
         file_last_update_time, file_last_update_uid
     </sql>
-    <sql id="Entity_Column_List">
-        `file`.file_id, `file`.file_real_name, `file`.file_display_name, `file`.file_desc, `file`.download_count, `file`.file_url,
-        `file`.privacy_type, `file`.file_type, `file`.storage_type, `file`.sync_type, `file`.file_creation_time, `file`.file_creation_uid,
-        `file`.file_last_update_time, `file`.file_last_update_uid, `l`.`library_id`, `l`.`library_name`
+    <sql id="Joint_Column_List">
+            `file`.file_id,
+            `file`.file_real_name,
+            `file`.file_display_name,
+            `file`.file_desc,
+            `file`.download_count,
+            `file`.file_url,
+            `file`.privacy_type,
+            `file`.file_type,
+            `file`.storage_type,
+            `file`.sync_type,
+            `file`.file_size,
+            `file`.file_creation_time,
+            `file`.file_creation_uid,
+            `file`.file_last_update_time,
+            `file`.file_last_update_uid,
+            `l`.`library_id`,
+            `l`.`library_name`
     </sql>
 
     <insert id="insertLibraryFileRelationship">
@@ -51,7 +66,7 @@
 
     <select id="findAllFiles" resultMap="BaseResultMap">
         SELECT
-        <include refid="Entity_Column_List"/>
+        <include refid="Joint_Column_List"/>
         FROM `file`
         LEFT JOIN `library_file` `lf` ON `file`.`file_id` = `lf`.`file_id`
         LEFT JOIN `library` `l` ON `lf`.`library_id` = `l`.`library_id`

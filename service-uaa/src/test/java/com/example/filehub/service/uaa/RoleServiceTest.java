@@ -1,9 +1,9 @@
 package com.example.filehub.service.uaa;
 
-import com.example.filehub.commons.service.constant.RoleConstant;
-import com.example.filehub.commons.service.entity.user.Permission;
-import com.example.filehub.commons.service.entity.user.Role;
-import com.example.filehub.commons.service.entity.user.UserAccountInfo;
+import com.example.filehub.commons.constant.RoleConstant;
+import com.example.filehub.commons.entity.user.Permission;
+import com.example.filehub.commons.entity.user.Role;
+import com.example.filehub.commons.entity.user.UserAccountInfo;
 import com.example.filehub.service.uaa.dao.PermissionDao;
 import com.example.filehub.service.uaa.dao.RoleDao;
 import com.example.filehub.service.uaa.dao.UserDao;
@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;

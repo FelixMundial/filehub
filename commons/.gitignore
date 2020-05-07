@@ -30,6 +30,6 @@ build/
 ### VS Code ###
 .vscode/
 
-/src/main/java/com/example/filehub/commons/service/util/JwtUtil.java
-/src/main/java/com/example/filehub/commons/service/util/RsaUtil.java
-/src/main/java/com/example/filehub/commons/service/config/JwtConfiguration.java
+/src/main/java/com/example/filehub/commons/util/JwtUtil.java
+/src/main/java/com/example/filehub/commons/util/RsaUtil.java
+/src/main/java/com/example/filehub/commons/config/JwtConfiguration.java

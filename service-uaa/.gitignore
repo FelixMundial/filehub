@@ -31,4 +31,4 @@ build/
 .vscode/
 
 /src/main/java/com/example/filehub/service/uaa/key/**
-/src/main/java/com/example/filehub/service/uaa/security/config/RsaKeyConfiguration.java
+/src/main/java/com/example/filehub/service/uaa/auth/config/RsaKeyConfiguration.java

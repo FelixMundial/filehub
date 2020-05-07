@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 //@EnableJpaRepositories(basePackages={"com.example.filehub.commons.service.dao.user"})
 //@EnableTransactionManagement
-@EntityScan("com.example.filehub.commons.service.entity.user")
+@EntityScan("com.example.filehub.commons.entity.user")
 @SpringBootApplication
 public class UaaServiceApplication {
 
