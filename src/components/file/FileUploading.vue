@@ -39,9 +39,6 @@
         </a>
       </el-dialog>
     </el-card>
-    <div v-for="(file, index) in files" :key="index">
-      <el-tag>{{ file }}</el-tag>
-    </div>
   </div>
 </template>
 
@@ -63,9 +60,6 @@ export default {
   },
   data() {
     return {
-      file: {},
-      files: [],
-      responseResult: {},
       ossPolicyResponseResult: {
         policy: "",
         signature: "",
@@ -80,48 +74,6 @@ export default {
       fileUrl: "",
       fileName: ""
     };
-  },
-  mounted() {
-    this.axios
-      .get("/library/10/files", {
-        headers: {
-          loadingText: "努力加载中..."
-        }
-      })
-      .then(validResponse => {
-        this.responseResult = validResponse.data;
-        if (this.responseResult.statusCode === 200) {
-          this.responseResult.data.forEach(item => {
-            this.file.fileDisplayName = item.fileDisplayName;
-            this.file.fileUrl = item.fileUrl;
-            this.file.fileType = item.fileType;
-            this.file.fileSize = item.fileSize;
-            this.file.fileLastUpdateTime = item.fileLastUpdateTime;
-            this.files.push(this.file);
-            this.file = {};
-          });
-        }
-      });
-    /* 不再直接通过oss api获取文件列表 */
-    // this.axios
-    //   .get("/file/filehub-oss", {
-    //     headers: {
-    //       loadingText: "努力加载中..."
-    //     }
-    //   })
-    //   .then(validResponse => {
-    //     this.responseResult = validResponse.data;
-    //     if (this.responseResult.statusCode === 200) {
-    //       this.responseResult.data.forEach(item => {
-    //         this.file.key = item.key;
-    //         this.file.lastModified = item.lastModified;
-    //         this.file.size = item.size;
-    //         this.file.etag = item.etag;
-    //         this.files.push(this.file);
-    //         this.file = {};
-    //       });
-    //     }
-    //   });
   },
   methods: {
     emitInput(val) {

@@ -6,7 +6,6 @@
     <el-main class="global-container">
       <div class="about">
         <h1>This is an about page</h1>
-        <FileUploading />
       </div>
     </el-main>
     <el-footer>
@@ -17,9 +16,9 @@
 <script>
 import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
-import FileUploading from "../components/file/FileUploading";
 
 export default {
-  components: { FileUploading, MainFooter, MainHeader }
+  name: "About",
+  components: { MainFooter, MainHeader }
 };
 </script>

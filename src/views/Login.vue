@@ -70,7 +70,7 @@ import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
 
 export default {
-  name: "Welcome",
+  name: "Login",
   components: { MainFooter, MainHeader },
   data() {
     return {

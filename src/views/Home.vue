@@ -4,8 +4,38 @@
       <main-header />
     </el-header>
     <el-main class="global-container">
-      <div v-for="(library, index) in libraries" :key="index">
-        <el-tag>{{ library }}</el-tag>
+      <div class="library-list-container">
+        <h1 class="library-list-title">
+          <i class="el-icon-trophy" style="margin: 10px"></i>Filehub热门
+        </h1>
+        <div class="library-item-container">
+          <el-card
+            shadow="hover"
+            class="library-item"
+            v-for="(library, index) in libraries"
+            :key="index"
+          >
+            <h4 class="library-item-title">
+              <router-link
+                :to="{
+                  path: '/library',
+                  query: { libraryId: library.libraryId }
+                }"
+              >
+                <span
+                  >{{ library.ownerUser.userNickname }}/{{
+                    library.libraryName
+                  }}</span
+                >
+              </router-link>
+              <span
+                ><i class="el-icon-star-off"></i>
+                {{ library.followersCount }}</span
+              >
+            </h4>
+            <span class="library-item-desc">{{ library.libraryDesc }}</span>
+          </el-card>
+        </div>
       </div>
     </el-main>
     <el-footer>
@@ -23,7 +53,23 @@ export default {
   components: { MainFooter, MainHeader },
   data() {
     return {
-      library: {},
+      library: {
+        /*
+        collaborators: [],
+        files: [],
+        followersCount: 899,
+        libraryCreationTime: "2016-10-16T00:49:13",
+        libraryCreationUid: 3,
+        libraryDesc: "Leetcode in Animations",
+        libraryId: 2,
+        libraryLastUpdateTime: "2020-02-15T13:49:19",
+        libraryLastUpdateUid: 3,
+        libraryName: "leetcode-animations",
+        libraryUrl: "/123456/leetcode_animations",
+        ownerUid: 3,
+        privacyType: false
+      */
+      },
       libraries: [],
       responseResult: {}
     };
@@ -39,11 +85,14 @@ export default {
         this.responseResult = validResponse.data;
         if (this.responseResult.statusCode === 200) {
           this.responseResult.data.forEach(item => {
+            this.library.libraryId = item.libraryId;
             this.library.libraryName = item.libraryName;
             this.library.libraryDesc = item.libraryDesc;
-            this.library.ownerName = item.ownerUid;
             this.library.libraryUrl = item.libraryUrl;
             this.library.followersCount = item.followersCount;
+            // 通过uid查询用户名（一次联查返回&发送uid再次查询）
+            this.library.ownerUid = item.ownerUid;
+            this.library.ownerUser = item.collaborators[0];
             this.library.libraryCreationTime = item.libraryCreationTime;
             this.library.libraryCreationUser = item.libraryCreationUid;
             this.library.isPrivate = item.privacyType;
@@ -57,4 +106,36 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.library-list-container {
+}
+.library-list-title {
+  margin-bottom: 2rem;
+}
+.library-item-container {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.library-item {
+  width: 40%;
+  height: 200px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+.library-item-title {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.library-item-desc {
+  color: darkgrey;
+  float: left;
+  text-align: left;
+  overflow-y: scroll;
+}
+</style>

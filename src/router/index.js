@@ -1,15 +1,15 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Welcome from "../views/Welcome";
 import Home from "../views/Home";
+import Login from "../views/Login";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Welcome",
-    component: Welcome
+    name: "Login",
+    component: Login
   },
   {
     path: "/register",
@@ -18,7 +18,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "registration" */ "../views/Registration.vue")
+      import(/* webpackChunkName: "registration" */ "../views/Registration")
   },
   {
     path: "/home",
@@ -34,8 +34,16 @@ const routes = [
     meta: {
       requireAuth: true
     },
+    component: () => import(/* webpackChunkName: "about" */ "../views/About")
+  },
+  {
+    path: "/library",
+    name: "Library",
+    meta: {
+      requireAuth: true
+    },
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(/* webpackChunkName: "library" */ "../views/Library")
   }
 ];
 
