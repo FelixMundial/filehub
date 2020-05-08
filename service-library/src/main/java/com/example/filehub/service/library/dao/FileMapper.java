@@ -10,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface FileMapper extends TkBaseMapper<File> {
     int insertLibraryFileRelationship(@Param("libraryId") Long libraryId, @Param("fileId") Long fileId);
 
-    List<File> findAllFiles();
+    List<File> findAllFilesByLibraryId(@Param("libraryId") Long libraryId);
 }

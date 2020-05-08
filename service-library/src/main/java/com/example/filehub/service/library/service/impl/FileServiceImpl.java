@@ -25,7 +25,6 @@ public class FileServiceImpl implements FileService{
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int saveUploadedFileInfo(File file, Long fileUploaderUid, Long libraryId) {
-        int mapperFlag;
         if (!StringUtils.isEmpty(file.getFileDisplayName()) && !StringUtils.isEmpty(file.getFileUrl())) {
             final Library library = libraryMapper.selectByPrimaryKey(libraryId);
             if (file.getFileCreationUid() == null) {
@@ -41,11 +40,22 @@ public class FileServiceImpl implements FileService{
             file.setParentLibraries(parentLibraries);
         }
         log.debug("Saving file: {} in library {}", file, libraryId);
-        mapperFlag = fileMapper.insertSelective(file);
+        int mapperFlag = fileMapper.insertSelective(file);
 
         if (mapperFlag != 0) {
             mapperFlag = fileMapper.insertLibraryFileRelationship(libraryId, file.getFileId());
+            /*
+            若插入关联表失败？
+             */
+//            if (mapperFlag == 0) {
+//                throw new RuntimeException("文件上传信息插入失败！");
+//            }
         }
         return mapperFlag;
+    }
+
+    @Override
+    public List<File> findAllFilesByLibrary(Long libraryId) {
+        return fileMapper.findAllFilesByLibraryId(libraryId);
     }
 }

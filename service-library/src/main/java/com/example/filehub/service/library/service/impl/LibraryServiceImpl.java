@@ -59,11 +59,6 @@ public class LibraryServiceImpl implements LibraryService {
         return libraryMapper.findAllByOwnerUidAndPrivacyTypeFalseOrderByLibraryName(uid);
     }
 
-    @Override
-    public List<File> findAllFilesByLibrary(Long libraryId) {
-        return libraryMapper.findAllFilesByLibraryId(libraryId);
-    }
-
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Library createLibrary(Library library, Long creatorUid) {
@@ -72,7 +67,19 @@ public class LibraryServiceImpl implements LibraryService {
         if (!StringUtils.isEmpty(libraryName)) {
             final LocalDateTime creationTime = LocalDateTime.now();
             library = new Library(libraryName, libraryDesc, creatorUid, creationTime);
-            libraryMapper.insertSelective(library);
+            int mapperFlag = libraryMapper.insertSelective(library);
+            if (mapperFlag != 0) {
+                mapperFlag = libraryMapper.insertLibraryColllaboratorRelationship(library.getLibraryId(), creatorUid);
+                /*
+                若插入关联表失败？
+                 */
+//                if (mapperFlag == 0) {
+//                    throw new RuntimeException("文件上传信息插入失败！");
+//                }
+            }
+            if (mapperFlag != 0) {
+                return library;
+            }
         }
         return null;
     }

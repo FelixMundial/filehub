@@ -53,7 +53,7 @@ class JpaLibraryServiceApplicationTests {
 
     @Test
     void findAllFilesByLibrary() {
-        final List<File> files = libraryService.findAllFilesByLibrary(3L);
+        final List<File> files = fileService.findAllFilesByLibrary(3L);
         files.forEach(System.out::println);
     }
 
@@ -63,14 +63,5 @@ class JpaLibraryServiceApplicationTests {
         fileService.saveUploadedFileInfo(File.createNewFile("Gone with the Wind.txt", "", "text"), 3L, 3L);
         fileService.saveUploadedFileInfo(File.createNewFile("pom.xml", "", "xml"), 2L, 2L);
         fileService.saveUploadedFileInfo(File.createNewFile("init.lua", "", "lua"), 2L, 3L);
-    }
-
-    @Resource
-    FileMapper fileMapper;
-
-    @Test
-    void findAllFiles() {
-        final List<File> files = fileMapper.findAllFiles();
-        files.forEach(System.out::println);
     }
 }

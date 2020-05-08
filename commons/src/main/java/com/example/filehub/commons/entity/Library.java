@@ -2,6 +2,7 @@ package com.example.filehub.commons.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import javax.persistence.*;
@@ -23,7 +24,7 @@ public class Library implements Serializable {
     @Column(name = "library_id")
 //    @GeneratedValue(generator = "JDBC")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer libraryId;
+    private Long libraryId;
 
     /**
      * 可重复
@@ -62,7 +63,7 @@ public class Library implements Serializable {
     private Long libraryLastUpdateUid;
 
     private List<File> files;
-    private List<UserAccountInfo> collaborators;
+    private LinkedList<UserAccountInfo> collaborators;
 
     private static final long serialVersionUID = 1L;
 

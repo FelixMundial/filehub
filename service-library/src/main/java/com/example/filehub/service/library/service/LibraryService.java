@@ -19,10 +19,5 @@ public interface LibraryService{
 
     List<Library> findAllLibrariesByUser(Long uid, boolean includePrivate);
 
-    /**
-     * 通过关联表间接查询云端文件列表
-     */
-    List<File> findAllFilesByLibrary(Long libraryId);
-
     Library createLibrary(Library library, Long creatorUid);
 }

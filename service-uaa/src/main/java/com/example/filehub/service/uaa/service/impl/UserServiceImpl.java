@@ -63,7 +63,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserAccountInfo findUserById(Long id) {
-        return userDao.findById(id).orElse(null);
+        final UserAccountInfo user = userDao.findById(id).orElse(null);
+        if (user != null) {
+            user.setUserLoginPassword("");
+        }
+        return user;
     }
 
     @Override

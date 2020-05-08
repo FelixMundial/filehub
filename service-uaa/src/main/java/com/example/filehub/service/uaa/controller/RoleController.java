@@ -20,7 +20,7 @@ import java.util.List;
 @Controller
 public class RoleController {
     @Autowired
-    RoleService roleService;
+    private RoleService roleService;
 
     @GetMapping("/query")
     public List<Role> getRolesByResourceUrl(@RequestParam String resourceUrl) {

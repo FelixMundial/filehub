@@ -64,11 +64,16 @@
         </trim>
     </insert>
 
-    <select id="findAllFiles" resultMap="BaseResultMap">
+    <select id="findAllFilesByLibraryId" resultMap="BaseResultMap">
         SELECT
         <include refid="Joint_Column_List"/>
         FROM `file`
         LEFT JOIN `library_file` `lf` ON `file`.`file_id` = `lf`.`file_id`
         LEFT JOIN `library` `l` ON `lf`.`library_id` = `l`.`library_id`
+        <where>
+            <if test="libraryId != null">
+                and l.`library_id`=#{libraryId,jdbcType=INTEGER}
+            </if>
+        </where>
     </select>
 </mapper>

@@ -2,6 +2,7 @@ package com.example.filehub.service.library.controller;
 
 import com.example.filehub.commons.global.dto.BaseResult;
 import com.example.filehub.commons.global.dto.factory.BaseResultFactory;
+import com.example.filehub.service.library.service.FileService;
 import com.example.filehub.service.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,9 +20,11 @@ import io.swagger.annotations.*;
 //@CrossOrigin
 @RestController
 //@RequestMapping(value = "/library")
-public class LibraryDisplayController {
+public class LibraryController {
     @Autowired
     private LibraryService libraryService;
+    @Autowired
+    private FileService fileService;
 
     @ApiImplicitParams(value = {})
     @ApiOperation("展示最热项目")
@@ -59,7 +62,7 @@ public class LibraryDisplayController {
     @GetMapping("/{libraryId}/files")
     public BaseResult displayFilesInLibrary(@PathVariable("libraryId") Long libraryId) {
         return BaseResultFactory.getSuccessResult(
-                libraryService.findAllFilesByLibrary(libraryId)
+                fileService.findAllFilesByLibrary(libraryId)
         );
     }
 }

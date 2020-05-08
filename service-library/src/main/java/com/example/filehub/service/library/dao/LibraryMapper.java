@@ -12,13 +12,16 @@ import java.util.List;
 
 @Mapper
 public interface LibraryMapper extends TkBaseMapper<Library> {
-    List<Library> findAllByFollowersCountGreaterThanOrEqualToOrderByFollowersCountDesc(@Param("minFollowersCount")Integer minFollowersCount);
+    int insertLibraryColllaboratorRelationship(@Param("libraryId") Long libraryId, @Param("fileId") Long uid);
 
-    List<Library> findAllByLibraryCreationTimeBeforeOrderByLibraryCreationTimeDesc(@Param("maxLibraryCreationTime")LocalDateTime maxLibraryCreationTime);
+    List<Library> findAllByFollowersCountGreaterThanOrEqualToOrderByFollowersCountDesc(@Param("minFollowersCount") Integer minFollowersCount);
 
-    List<Library> findAllByLibraryLastUpdateTimeBeforeOrderByLibraryLastUpdateTimeDesc(@Param("maxLibraryLastUpdateTime")LocalDateTime maxLibraryLastUpdateTime);
+    List<Library> findAllByLibraryCreationTimeBeforeOrderByLibraryCreationTimeDesc(@Param("maxLibraryCreationTime") LocalDateTime maxLibraryCreationTime);
+
+    List<Library> findAllByLibraryLastUpdateTimeBeforeOrderByLibraryLastUpdateTimeDesc(@Param("maxLibraryLastUpdateTime") LocalDateTime maxLibraryLastUpdateTime);
 
     List<Library> findAllByOwnerUidOrderByFollowersCountDesc(@Param("ownerUid") Long ownerUid);
+
     List<Library> findAllByOwnerUidAndPrivacyTypeFalseOrderByFollowersCountDesc(@Param("ownerUid") Long ownerUid);
 
 	List<Library> findAllByOwnerUidOrderByLibraryLastUpdateTimeDesc(@Param("ownerUid") Long ownerUid);
@@ -26,6 +29,4 @@ public interface LibraryMapper extends TkBaseMapper<Library> {
 
 	List<Library> findAllByOwnerUidOrderByLibraryName(@Param("ownerUid") Long ownerUid);
     List<Library> findAllByOwnerUidAndPrivacyTypeFalseOrderByLibraryName(@Param("ownerUid")Long ownerUid);
-
-    List<File> findAllFilesByLibraryId(@Param("libraryId") Long libraryId);
 }

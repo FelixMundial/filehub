@@ -2,6 +2,8 @@ package com.example.filehub.service.library.service;
 
 import com.example.filehub.commons.entity.File;
 
+import java.util.List;
+
 public interface FileService {
     /**
      * 将已上传oss的文件信息落库（若发生异常，需通过定时任务进行重试）
@@ -12,4 +14,9 @@ public interface FileService {
      * @return 是否落库成功
      */
     int saveUploadedFileInfo(File file, Long fileUploaderUid, Long libraryId);
+
+    /**
+     * 通过落库信息间接查询文件列表
+     */
+    List<File> findAllFilesByLibrary(Long libraryId);
 }
