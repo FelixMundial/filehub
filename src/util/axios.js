@@ -51,7 +51,7 @@ axios.interceptors.response.use(
         // 判断响应中是否存在token，若存在则替换本地token
         // [后端返回的token应在headers中而非data中]
         // token = response.headers.authorization;
-        if (response.data.data.token) {
+        if (response.data.data && response.data.data.token) {
           token = response.data.data.token;
           // axios.defaults.headers.common["Authorization"] = token;
           sessionStorage.setItem("token", token);

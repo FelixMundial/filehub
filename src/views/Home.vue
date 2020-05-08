@@ -9,6 +9,9 @@
           <i class="el-icon-trophy" style="margin: 10px"></i>Filehub热门
         </h1>
         <div class="library-item-container">
+          <h4 v-if="isPlaceholderTextEnabled">
+            此地空无一物，请检查您的网络...
+          </h4>
           <el-card
             shadow="hover"
             class="library-item"
@@ -53,6 +56,7 @@ export default {
   components: { MainFooter, MainHeader },
   data() {
     return {
+      isPlaceholderTextEnabled: true,
       library: {
         /*
         collaborators: [],
@@ -99,6 +103,7 @@ export default {
             this.libraries.push(this.library);
             this.library = {};
           });
+          this.isPlaceholderTextEnabled = false;
         }
       });
   },

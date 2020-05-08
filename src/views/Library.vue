@@ -35,6 +35,14 @@
             <div class="file-item-desc">
               <span>{{ file.fileLastUpdateUser }}</span>
               <span>{{ computedFileSize(file.fileSize) }}</span>
+              <a :href="file.fileUrl" :download="file.fileDisplayName">
+                <el-button
+                  icon="el-icon-download"
+                  type="primary"
+                  plain
+                  circle
+                ></el-button>
+              </a>
             </div>
           </el-collapse-item>
         </el-collapse>
@@ -105,7 +113,6 @@ export default {
             this.files.push(this.file);
             this.file = {};
           });
-          console.log(this.files);
         }
       });
     /* 不再直接通过oss api获取文件列表 */
@@ -154,6 +161,7 @@ export default {
 .file-item-desc {
   margin: 0 5rem;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   flex-direction: row;
   flex-wrap: wrap;

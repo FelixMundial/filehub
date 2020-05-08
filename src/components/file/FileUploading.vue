@@ -111,15 +111,27 @@ export default {
       });
     },
     handlePreview(file) {
-      console.log(file);
       this.isPreviewDialogVisible = true;
-      this.fileUrl = file.url;
-      this.fileName = file.name;
+      /* 预览时暂不提供下载支持 */
+      // this.fileName = file.name;
+      // /* 从fileList中匹配文件，获取url */
+      // for (let i = 0; i < this.fileList.length; i++) {
+      //   file = this.fileList[i];
+      //   if (this.fileName === file.name) {
+      //     this.fileUrl = file.url;
+      //     break;
+      //   }
+      // }
+      // if (this.fileUrl) {
+      //   console.log(this.fileUrl);
+      // } else {
+      //   console.log("暂时无法获取下载链接");
+      // }
     },
     handleUploadSuccess(res, file, fileList) {
       this.$message.success("文件上传成功！");
       // 无法获取response
-      console.log(res);
+      // console.log(res);
       this.fileList.pop();
       let fileUrl =
         this.ossPolicyResponseResult.host +
