@@ -69,7 +69,7 @@ public class LibraryServiceImpl implements LibraryService {
             library = new Library(libraryName, libraryDesc, creatorUid, creationTime);
             int mapperFlag = libraryMapper.insertSelective(library);
             if (mapperFlag != 0) {
-                mapperFlag = libraryMapper.insertLibraryColllaboratorRelationship(library.getLibraryId(), creatorUid);
+                mapperFlag = libraryMapper.insertLibraryCollaboratorRelationship(library.getLibraryId(), creatorUid);
                 /*
                 若插入关联表失败？
                  */

@@ -23,7 +23,7 @@
             <result property="fileUrl" column="file_url" jdbcType="VARCHAR"/>
         </collection>
         <collection property="collaborators" ofType="com.example.filehub.commons.entity.user.UserAccountInfo"
-                    javaType="linkedlist">
+                    javaType="java.util.LinkedList">
             <id property="userId" column="uid" jdbcType="INTEGER"/>
             <result property="userLoginName" column="login_name" jdbcType="VARCHAR"/>
             <result property="userNickname" column="nickname" jdbcType="VARCHAR"/>

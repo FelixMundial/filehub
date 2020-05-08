@@ -12,7 +12,7 @@ import java.util.List;
 
 @Mapper
 public interface LibraryMapper extends TkBaseMapper<Library> {
-    int insertLibraryColllaboratorRelationship(@Param("libraryId") Long libraryId, @Param("fileId") Long uid);
+    int insertLibraryCollaboratorRelationship(@Param("libraryId") Long libraryId, @Param("fileId") Long uid);
 
     List<Library> findAllByFollowersCountGreaterThanOrEqualToOrderByFollowersCountDesc(@Param("minFollowersCount") Integer minFollowersCount);
 
