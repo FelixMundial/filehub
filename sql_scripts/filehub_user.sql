@@ -1,20 +1,6 @@
 CREATE DATABASE IF NOT EXISTS `filehub`;
-CREATE TABLE IF NOT EXISTS `filehub`.`user`
-(
-    `uid`              INT AUTO_INCREMENT
-        PRIMARY KEY,
-    `login_name`       VARCHAR(32)          NOT NULL COMMENT '不可重复',
-    `login_password`   VARCHAR(128)         NOT NULL,
-    `nickname`         VARCHAR(32)          NULL,
-    `creation_time`    DATETIME             NOT NULL,
-    `last_update_time` DATETIME             NOT NULL,
-    `active_state`     TINYINT(1) DEFAULT 1 NOT NULL COMMENT '1-可用；0-注销',
-    CONSTRAINT `user_login_name_uindex`
-        UNIQUE (`login_name`)
-)
-    COMMENT '用户账户信息';
 
-CREATE TABLE `user`
+CREATE TABLE `filehub`.`user`
 (
     `uid`              INT AUTO_INCREMENT
         PRIMARY KEY,
@@ -53,20 +39,12 @@ INSERT INTO `filehub`.`user` (`uid`, `login_name`, `login_password`, `nickname`,
                               `active_state`)
 VALUES (101, '123456789@qq.com', '$2a$10$3EBvqcfyHBaBh9NEJXbo6eGocWY0KQh128mq.IAd2Y4z/195RQNhC', NULL,
         '2020-04-29 10:53:36', '2020-04-29 10:53:36', 1);
+INSERT INTO `filehub`.`user` (`uid`, `login_name`, `login_password`, `nickname`, `creation_time`, `last_update_time`,
+                              `active_state`)
+VALUES (105, 'chris_avalon', '$2a$10$6r7c3exjtFT/ULxUU04Qo.HC1RkGOreZvDldddlEYPywDyREbK7Iq', NULL,
+        '2020-05-13 16:06:05', '2020-05-13 16:06:05', 1);
 
 CREATE TABLE IF NOT EXISTS `filehub`.`role`
-(
-    `id`               BIGINT AUTO_INCREMENT
-        PRIMARY KEY,
-    `name`             VARCHAR(64)  NOT NULL COMMENT '角色名称',
-    `code`             VARCHAR(64)  NULL COMMENT '角色编码',
-    `notes`            VARCHAR(255) NULL COMMENT '备注',
-    `creation_time`    DATETIME     NOT NULL,
-    `last_update_time` DATETIME     NULL
-)
-    COMMENT '角色';
-
-CREATE TABLE `role`
 (
     `id`               BIGINT AUTO_INCREMENT
         PRIMARY KEY,
@@ -107,6 +85,10 @@ CREATE TABLE IF NOT EXISTS `filehub`.`permission`
 )
     COMMENT '权限';
 
+INSERT INTO `filehub`.`permission` (`id`, `name`, `code`, `resource_url`, `resource_name`, `notes`, `creation_time`,
+                                    `last_update_time`)
+VALUES (1, '删除评论', 'disable_comments', '/library/comments/disable', NULL, NULL, '2020-04-30 09:49:57', NULL);
+
 CREATE TABLE IF NOT EXISTS `filehub`.`user_role`
 (
     `id`      BIGINT AUTO_INCREMENT
@@ -116,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `filehub`.`user_role`
 )
     COMMENT '用户对应的角色';
 
-CREATE TABLE `user_role`
+CREATE TABLE IF NOT EXISTS `filehub`.`user_role`
 (
     `id`      BIGINT AUTO_INCREMENT
         PRIMARY KEY,
@@ -137,6 +119,8 @@ INSERT INTO `filehub`.`user_role` (`id`, `user_id`, `role_id`)
 VALUES (5, 2, 1);
 INSERT INTO `filehub`.`user_role` (`id`, `user_id`, `role_id`)
 VALUES (6, 101, 2);
+INSERT INTO `filehub`.`user_role` (`id`, `user_id`, `role_id`)
+VALUES (7, 105, 2);
 
 CREATE TABLE IF NOT EXISTS `filehub`.`role_permission`
 (
@@ -145,5 +129,11 @@ CREATE TABLE IF NOT EXISTS `filehub`.`role_permission`
     `role_id`       BIGINT NOT NULL COMMENT '角色id',
     `permission_id` BIGINT NOT NULL COMMENT '权限id'
 )
-    COMMENT '角色对应的权限';
+    COMMENT '角色对应的权限（约定：一个角色可拥有多个权限）';
 
+INSERT INTO `filehub`.`role_permission` (`id`, `role_id`, `permission_id`)
+VALUES (1, 5, 1);
+INSERT INTO `filehub`.`role_permission` (`id`, `role_id`, `permission_id`)
+VALUES (2, 6, 1);
+INSERT INTO `filehub`.`role_permission` (`id`, `role_id`, `permission_id`)
+VALUES (3, 1, 1);

@@ -4,6 +4,7 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.model.OSSObjectSummary;
 import com.aliyun.oss.model.ObjectListing;
 import com.example.filehub.service.file.config.OssConfig;
+import com.example.filehub.service.file.service.impl.OssServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +18,7 @@ import java.util.List;
 @SpringBootTest
 class OssServiceTest {
     @Autowired
-    private OssService ossService;
+    private OssServiceImpl ossService;
 
     @Value("classpath:/archives/oss-test.json")
     private Resource localFile;

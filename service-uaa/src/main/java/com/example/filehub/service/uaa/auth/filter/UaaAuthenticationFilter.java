@@ -41,18 +41,16 @@ public class UaaAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     private UserAccountInfo retrieveUser(HttpServletRequest request) {
-        if (this.user == null) {
-            try {
-                user = JsonUtil.getPojoFromInputStream(request.getInputStream(), UserAccountInfo.class);
-                if (user == null) {
-                    logger.error("retrieveUser(): User cannot be found in request.");
-                }
-            } catch (IOException e) {
-                logger.error("retrieveUser(): {}", e);
-                throw new AuthenticationServiceException(e.getMessage());
+        try {
+            user = JsonUtil.getPojoFromInputStream(request.getInputStream(), UserAccountInfo.class);
+            if (user == null) {
+                logger.error("retrieveUser(): User cannot be found in request.");
             }
+        } catch (IOException e) {
+            logger.error("retrieveUser(): {}", e);
+            throw new AuthenticationServiceException(e.getMessage());
         }
-        return this.user;
+        return user;
     }
 
     @Override
@@ -78,13 +76,13 @@ public class UaaAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public String obtainPassword(HttpServletRequest request) {
         String password = request.getParameter("password");
-        if (StringUtils.isEmpty(password)) {
-            if (retrieveUser(request) != null) {
-                return user.getUserLoginPassword();
-            }
+        if (StringUtils.isEmpty(password) && this.user != null) {
+            /*
+            HttpServletRequest只接受一次读取，故此处直接从this.user中取值
+             */
+            return this.user.getUserLoginPassword();
         } else {
             return password;
         }
-        return null;
     }
 }

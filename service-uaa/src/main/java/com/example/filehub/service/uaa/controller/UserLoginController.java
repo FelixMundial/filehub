@@ -34,7 +34,7 @@ public class UserLoginController {
 
         final UserAccountInfo user = userService.findUserByLoginNameAndLoginPassword(userAccountInfo.getUserLoginName(), userAccountInfo.getUserLoginPassword());
         if (user != null) {
-            return BaseResultFactory.getSuccessResult(String.format("%s用户登录成功", userAccountInfo.getUserLoginName()));
+            return BaseResultFactory.getSuccessResultWithMessage(String.format("%s用户登录成功", userAccountInfo.getUserLoginName()));
         }
         return BaseResultFactory.getFailureResult(
                 HttpStatus.SERVICE_UNAVAILABLE.value(), String.format("%s用户登录失败：%s", userAccountInfo.getUserLoginName(), "用户名或密码错误")

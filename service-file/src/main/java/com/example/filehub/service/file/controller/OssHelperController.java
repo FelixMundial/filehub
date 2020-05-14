@@ -31,7 +31,7 @@ public class OssHelperController {
     public BaseResult getPolicy() {
         OssPolicy ossPolicy = ossService.getPolicy();
         if (ossPolicy != null && ossPolicy.getHost().equals(ossService.getHost())) {
-            return BaseResultFactory.getSuccessResult(ossPolicy);
+            return BaseResultFactory.getSuccessResultWithData(ossPolicy);
         }
         return BaseResultFactory.getFailureResult(HttpStatus.SERVICE_UNAVAILABLE.value(), "服务暂不可用！");
     }

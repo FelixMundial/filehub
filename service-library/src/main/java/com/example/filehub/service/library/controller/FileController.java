@@ -52,6 +52,6 @@ public class FileController {
         }
 
         log.debug("文件上传信息落库成功！");
-        return BaseResultFactory.getSuccessResult("文件上传信息落库成功！");
+        return BaseResultFactory.getSuccessResultWithMessage("文件上传信息落库成功！");
     }
 }

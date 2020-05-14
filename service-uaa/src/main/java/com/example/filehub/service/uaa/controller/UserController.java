@@ -1,6 +1,5 @@
 package com.example.filehub.service.uaa.controller;
 
-import com.example.filehub.commons.entity.user.Role;
 import com.example.filehub.commons.global.dto.BaseResult;
 import com.example.filehub.commons.global.dto.factory.BaseResultFactory;
 import com.example.filehub.service.uaa.service.UserService;
@@ -10,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @author yinfelix
@@ -27,6 +24,6 @@ public class UserController {
 
     @GetMapping("/query")
     public BaseResult getUserByUid(@RequestParam Long uid) {
-        return BaseResultFactory.getSuccessResult(userService.findUserById(uid));
+        return BaseResultFactory.getSuccessResultWithData(userService.findUserById(uid));
     }
 }

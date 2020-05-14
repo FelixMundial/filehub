@@ -8,16 +8,15 @@ import com.example.filehub.commons.entity.user.UserAccountInfo;
  */
 public interface UserService {
     /**
-     *
      * @param user
-     * @return UserAuthcInfoVo
+     * @return UserAccountInfo
      */
     UserAccountInfo saveUser(UserAccountInfo user);
 
     /**
      * @param userLoginName
      * @param userLoginPassword
-     * @return UserAuthcInfoVo
+     * @return UserAccountInfo
      */
     UserAccountInfo findUserByLoginNameAndLoginPassword(String userLoginName, String userLoginPassword);
 

@@ -31,7 +31,7 @@ public class LibraryController {
     @PreAuthorize("hasAnyAuthority('role_admin', 'role_user', 'role_guest')")
     @GetMapping("/explore/top")
     public BaseResult displayTopLibraries() {
-        return BaseResultFactory.getSuccessResult(
+        return BaseResultFactory.getSuccessResultWithData(
                 libraryService.findTopLibraries(0)
         );
     }
@@ -41,7 +41,7 @@ public class LibraryController {
     @PreAuthorize("hasAnyAuthority('role_admin0', 'role_admin', 'role_vip', 'role_guest')")
     @GetMapping("/explore/new")
     public BaseResult displayNewLibraries() {
-        return BaseResultFactory.getSuccessResult(
+        return BaseResultFactory.getSuccessResultWithData(
                 libraryService.findNewLibraries(LocalDateTime.now())
         );
     }
@@ -51,7 +51,7 @@ public class LibraryController {
     @PreAuthorize("hasAnyAuthority('role_admin0', 'role_admin', 'role_vip')")
     @GetMapping("/user/{uid}")
     public BaseResult displayUserLibraries(@PathVariable("uid") Long uid) {
-        return BaseResultFactory.getSuccessResult(
+        return BaseResultFactory.getSuccessResultWithData(
                 libraryService.findAllLibrariesByUser(uid, true)
         );
     }
@@ -61,7 +61,7 @@ public class LibraryController {
     @PreAuthorize("hasAnyAuthority('role_admin0', 'role_admin', 'role_vip')")
     @GetMapping("/{libraryId}/files")
     public BaseResult displayFilesInLibrary(@PathVariable("libraryId") Long libraryId) {
-        return BaseResultFactory.getSuccessResult(
+        return BaseResultFactory.getSuccessResultWithData(
                 fileService.findAllFilesByLibrary(libraryId)
         );
     }

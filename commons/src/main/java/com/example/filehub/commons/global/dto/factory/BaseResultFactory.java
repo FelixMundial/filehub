@@ -12,11 +12,11 @@ public class BaseResultFactory {
         return getResult(HttpStatus.OK.value(), message, data);
     }
 
-    public static BaseResult getSuccessResult(Object data) {
+    public static BaseResult getSuccessResultWithData(Object data) {
         return getResult(HttpStatus.OK.value(), "OK", data);
     }
 
-    public static BaseResult getSuccessResult(String message) {
+    public static BaseResult getSuccessResultWithMessage(String message) {
         return getResult(HttpStatus.OK.value(), message, null);
     }
 

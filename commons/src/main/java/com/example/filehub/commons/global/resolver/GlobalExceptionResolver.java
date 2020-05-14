@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 /**
  * @author yinfelix
  * @apiNote 全局异常处理
@@ -22,17 +24,7 @@ public class GlobalExceptionResolver {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public BaseResult handleUnexpectedException(Exception e) {
-        log.error(e.getMessage(), e);
+        log.error("handleUnexpectedException()", e);
         return BaseResultFactory.getFailureResult(HttpStatus.SERVICE_UNAVAILABLE.value(), e.getMessage());
     }
-
-    /**
-     * 处理所有业务异常
-     */
-//    @ExceptionHandler(Exception.class)
-//    @ResponseBody
-//    public BaseResult handleOpdRuntimeException(Exception e) {
-//        log.error(e.getMessage(), e);
-//        return BaseResultFactory.getFailureResult(HttpStatus.SERVICE_UNAVAILABLE.value(), e.getMessage());
-//    }
 }
