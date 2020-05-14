@@ -34,15 +34,14 @@
         </el-form-item>
         <el-form-item>
           <el-button
-            class="registration-submit-btn"
+            id="login_btn"
+            class="login-submit-btn"
             @click="submitForm('loginForm')"
             type="primary"
             icon="el-icon-s-promotion"
             >立即登录</el-button
           >
-          <el-button
-            class="registration-reset-btn"
-            @click="resetForm('loginForm')"
+          <el-button class="login-reset-btn" @click="resetForm('loginForm')"
             >重置信息</el-button
           >
         </el-form-item>

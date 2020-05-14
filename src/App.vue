@@ -14,4 +14,15 @@
   margin-top 60px
 .global-container
   min-height 750px
+pre
+  display: block
+  text-align left
+  white-space: pre
+  padding: .5rem
+  line-height: 1.25
+  overflow-x: scroll
+  background-color cadetblue
+  color aliceblue
+  border-radius 5px
+  font-family: Menlo, Monaco, "Courier New", monospace
 </style>

@@ -48,13 +48,12 @@ const mergeLoadingClosure = _.debounce(() => {
   }
 }, 300);
 
-const parseLoadingBackgroundColor = loadingBackgroundColor => {
+export const parseLoadingBackgroundColor = loadingBackgroundColor => {
   if (
-    typeof loadingBackgroundColor ===
-    "string" /* &&
-    new RegExp(
-      /^rgba((25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9]),(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9]),(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9]))$/
-    ).test(loadingBackgroundColor)*/
+    typeof loadingBackgroundColor === "string" &&
+    /((25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9]),\s?(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9]),\s?(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9],\s?0.\d+))/.test(
+      loadingBackgroundColor
+    )
   ) {
     return loadingBackgroundColor;
   } else if (typeof loadingBackgroundColor === "object") {

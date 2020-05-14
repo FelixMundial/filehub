@@ -42,6 +42,7 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   response => {
+    // console.log("response", response);
     if (!response.config.headers.noLoading) {
       hideLoading();
     }
@@ -51,6 +52,7 @@ axios.interceptors.response.use(
         // 判断响应中是否存在token，若存在则替换本地token
         // [后端返回的token应在headers中而非data中]
         // token = response.headers.authorization;
+        // console.log("response.data.data.token", response.data.data.token);
         if (response.data.data && response.data.data.token) {
           token = response.data.data.token;
           // axios.defaults.headers.common["Authorization"] = token;
@@ -74,7 +76,7 @@ axios.interceptors.response.use(
   },
   //  非法响应
   error => {
-    console.log(error);
+    // console.log("error", error);
     if (!error.config.headers.noLoading) {
       hideLoading();
     }

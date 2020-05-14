@@ -57,9 +57,10 @@ router.beforeEach((to, from, next) => {
     // console.log("检查登录状态...");
     if (sessionStorage.token) {
       // 判断登录存入的token是否存在
-      console.log("已登录!");
+      // console.log("已登录!");
       next();
     } else {
+      console.log("认证过期或未登录，尝试重新认证...");
       next({
         path: "/",
         /* 跳转回认证页面，并将目标路由的url路径保存在query中 */

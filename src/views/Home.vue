@@ -25,13 +25,13 @@
                   query: { libraryId: library.libraryId }
                 }"
               >
-                <span
+                <span class="library-item-title-name"
                   >{{ library.ownerUser.userNickname }}/{{
                     library.libraryName
                   }}</span
                 >
               </router-link>
-              <span
+              <span class="library-item-title-star"
                 ><i class="el-icon-star-off"></i>
                 {{ library.followersCount }}</span
               >
@@ -57,23 +57,7 @@ export default {
   data() {
     return {
       isPlaceholderTextEnabled: true,
-      library: {
-        /*
-        collaborators: [],
-        files: [],
-        followersCount: 899,
-        libraryCreationTime: "2016-10-16T00:49:13",
-        libraryCreationUid: 3,
-        libraryDesc: "Leetcode in Animations",
-        libraryId: 2,
-        libraryLastUpdateTime: "2020-02-15T13:49:19",
-        libraryLastUpdateUid: 3,
-        libraryName: "leetcode-animations",
-        libraryUrl: "/123456/leetcode_animations",
-        ownerUid: 3,
-        privacyType: false
-      */
-      },
+      library: {},
       libraries: [],
       responseResult: {}
     };
@@ -88,13 +72,13 @@ export default {
       .then(validResponse => {
         this.responseResult = validResponse.data;
         if (this.responseResult.statusCode === 200) {
+          console.log("home", this.responseResult.data[0]);
           this.responseResult.data.forEach(item => {
             this.library.libraryId = item.libraryId;
             this.library.libraryName = item.libraryName;
             this.library.libraryDesc = item.libraryDesc;
             this.library.libraryUrl = item.libraryUrl;
             this.library.followersCount = item.followersCount;
-            // 通过uid查询用户名（一次联查返回&发送uid再次查询）
             this.library.ownerUid = item.ownerUid;
             this.library.ownerUser = item.collaborators[0];
             this.library.libraryCreationTime = item.libraryCreationTime;
@@ -130,17 +114,28 @@ export default {
   height: 200px;
   padding: 1rem;
   margin-bottom: 2rem;
+  text-align: left;
 }
 .library-item-title {
   display: flex;
-  justify-content: space-evenly;
+  flex-wrap: nowrap;
+  justify-content: space-between;
   flex-direction: row;
-  flex-wrap: wrap;
+}
+.library-item-title-name {
+  padding-right: 1rem;
+}
+.library-item-title-star {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.library-item-title-star i {
+  padding-top: 2px;
+  margin-right: 3px;
 }
 .library-item-desc {
   color: darkgrey;
-  float: left;
-  text-align: left;
   overflow-y: scroll;
+  font-family: "American Typewriter", serif;
 }
 </style>
