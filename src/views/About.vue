@@ -1,8 +1,6 @@
 <template>
   <el-container>
-    <el-header>
-      <main-header />
-    </el-header>
+    <navigation></navigation>
     <el-main class="global-container">
       <div class="about">
         <h1>This is an about page</h1>
@@ -16,9 +14,9 @@
 <script>
 import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
-
+import Navigation from "../components/Navigation";
 export default {
   name: "About",
-  components: { MainFooter, MainHeader }
+  components: {Navigation, MainFooter, MainHeader }
 };
 </script>

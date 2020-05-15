@@ -1,12 +1,12 @@
 <template>
   <el-container>
-    <el-header>
-      <main-header />
-    </el-header>
+<!--    导航栏-->
+    <navigation></navigation>
+<!--    -->
     <el-main class="global-container">
       <div class="library-list-container">
         <h1 class="library-list-title">
-          <i class="el-icon-trophy" style="margin: 10px"></i>Filehub热门
+          <i class="el-icon-trophy" style="margin: 10px"></i>FileHub热门
         </h1>
         <div class="library-item-container">
           <h4 v-if="isPlaceholderTextEnabled">
@@ -18,6 +18,7 @@
             v-for="(library, index) in libraries"
             :key="index"
           >
+<!--            <a>{{libraries[index]}}</a>-->
             <h4 class="library-item-title">
               <router-link
                 :to="{
@@ -31,8 +32,8 @@
                   }}</span
                 >
               </router-link>
-              <span
-                ><i class="el-icon-star-off"></i>
+              <span>
+                <el-button @click="starClick(index)" icon="el-icon-star-off"></el-button>
                 {{ library.followersCount }}</span
               >
             </h4>
@@ -50,12 +51,18 @@
 <script>
 import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
+import Navigation from "../components/Navigation";
+import axios from "../util/axios";
 
 export default {
   name: "Home",
-  components: { MainFooter, MainHeader },
+  components: { Navigation,MainFooter, MainHeader },
   data() {
     return {
+      navBarIndex: '1',
+      navList : [{
+
+      }],
       isPlaceholderTextEnabled: true,
       library: {
         /*
@@ -76,9 +83,9 @@ export default {
       },
       libraries: [],
       responseResult: {}
-    };
+    }
   },
-  created() {
+  created(){
     this.axios
       .get("/library/explore/top", {
         headers: {
@@ -107,13 +114,31 @@ export default {
         }
       });
   },
-  methods: {}
+  methods: {
+    starClick(index){
+      console.log("button clicked" );
+      /*Star 实现*/
+      // this.libraries[index].followersCount++;
+      // this.axios.post("/library/explore/top",{});
+
+    },
+  }
 };
 </script>
 
+
+<style>
+  html,body,#app,.el-container{
+    /*设置内部填充为0，几个布局元素之间没有间距*/
+    padding: 0px;
+    /*外部间距也是如此设置*/
+    margin: 0px;
+    /*统一设置高度为100%*/
+    height: 100%;
+  }
+</style>
+
 <style scoped>
-.library-list-container {
-}
 .library-list-title {
   margin-bottom: 2rem;
 }

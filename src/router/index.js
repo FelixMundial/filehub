@@ -27,6 +27,7 @@ const routes = [
       requireAuth: true
     },
     component: Home
+
   },
   {
     path: "/about",
@@ -44,7 +45,7 @@ const routes = [
     },
     component: () =>
       import(/* webpackChunkName: "library" */ "../views/Library")
-  }
+  },
 ];
 
 const router = new VueRouter({
@@ -57,7 +58,7 @@ router.beforeEach((to, from, next) => {
     // console.log("检查登录状态...");
     if (sessionStorage.token) {
       // 判断登录存入的token是否存在
-      console.log("已登录!");
+      console.log("已登录! ");
       next();
     } else {
       next({

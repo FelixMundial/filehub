@@ -1,5 +1,7 @@
 <template>
-  <div>Header</div>
+ <div >
+ MainHeader
+ </div>
 </template>
 
 <script>
@@ -8,4 +10,6 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style >
+
+</style>

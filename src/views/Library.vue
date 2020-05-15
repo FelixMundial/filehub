@@ -1,8 +1,6 @@
 <template>
   <el-container>
-    <el-header>
-      <main-header />
-    </el-header>
+    <navigation></navigation>
     <el-main class="global-container">
       <FileUploading />
       <div class="file-list-container">
@@ -34,7 +32,7 @@
             </template>
             <div class="file-item-desc">
               <span>{{ file.fileLastUpdateUser }}</span>
-              <span>{{ computedFileSize(file.fileSize) }}</span>
+              <span>{{ computedFileSize(file.fileSize)}}</span>
               <a :href="file.fileUrl" :download="file.fileDisplayName">
                 <el-button
                   icon="el-icon-download"
@@ -42,6 +40,14 @@
                   plain
                   circle
                 ></el-button>
+              </a>
+              <a :href="file.fileUrl" :download="file.fileDisplayName">
+                <el-button
+                 icon="el-icon-delete"
+                 type="danger"
+                 plain
+                 circle>
+                </el-button>
               </a>
             </div>
           </el-collapse-item>
@@ -58,13 +64,13 @@
 import FileUploading from "../components/file/FileUploading";
 import MainFooter from "../components/MainFooter";
 import MainHeader from "../components/MainHeader";
-
+import Navigation from "../components/Navigation";
 export default {
   name: "Library",
-  components: { FileUploading, MainFooter, MainHeader },
+  components: { Navigation,FileUploading, MainFooter, MainHeader },
   computed: {
     computedFileSize() {
-      return size => (size === null ? "未知大小" : size + "字节");
+      return size => (size === null ? "未知大小" : Math.floor((size/1024)*100)/100 + "MB");
     }
   },
   data() {
