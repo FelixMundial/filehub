@@ -63,9 +63,6 @@
 </template>
 
 <script>
-  // import MainFooter from "../components/MainFooter";
-  // import MainHeader from "../components/MainHeader";
-
   export default {
     name: "Registration",
     // components: { MainHeader, MainFooter },
@@ -109,14 +106,15 @@
               if (this.responseResult.statusCode === 200) {
                 this.$message.success(this.responseResult.message);
                 // 注册成功，直接进入首页（需要自动进行登陆）
-                this.$router.push({ name: "/" });
+                this.$router.push({ name: "/home" });
               }
             });
       },
       submitForm(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            this.register();
+            // this.register();
+            this.$router.push("/")
           } else {
             this.$message.error("用户名或密码不合要求！");
             return false;

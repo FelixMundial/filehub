@@ -49,12 +49,11 @@
 </template>
 
 <script>
-  import Navigation from "../components/Navigation";
 
   export default {
     name: "login",
      // components: { MainFooter, MainHeader },
-    components : {Navigation},
+    components : {},
     data() {
       return {
         loginInfo: { loginType: "", loginName: "", loginPassword: "" },

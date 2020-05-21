@@ -27,7 +27,7 @@
                 }"
               >
                 <span
-                  >{{ library.ownerUser.userNickname }}/{{
+                  >{{ library.ownerUser}}/{{
                     library.libraryName
                   }}</span
                 >
@@ -52,14 +52,12 @@
 import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
 import Navigation from "../components/Navigation";
-import axios from "../util/axios";
 
 export default {
   name: "Home",
   components: { Navigation,MainFooter, MainHeader },
   data() {
     return {
-      navBarIndex: '1',
       navList : [{
 
       }],

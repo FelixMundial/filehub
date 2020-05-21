@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home";
 import Login from "../views/Login";
+import Search from "../views/Search";
 
 Vue.use(VueRouter);
 
@@ -46,11 +47,37 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "library" */ "../views/Library")
   },
+  {
+    path: "/Search",
+    name: "Search",
+    meta: {
+      requireAuth: true
+    },
+    component: () =>
+        import(/* webpackChunkName: "library" */ "../views/Search"),
+    props : (router)=> ({ query: router.query.word }),
+  },
+  {
+    path : "/Explore" ,
+    name : "explore" ,
+    meta: {
+      requireAuth: true,
+    },
+    component: () =>
+        import("../views/Explore")
+  },
+
 ];
 
 const router = new VueRouter({
   routes
 });
+
+//解决同名路由的跳转问题
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requireAuth)) {

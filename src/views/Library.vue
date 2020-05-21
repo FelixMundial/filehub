@@ -77,17 +77,6 @@ export default {
     return {
       currentLibrary: {},
       file: {
-        /*
-        fileDisplayName: "oss-test.json",
-        fileUrl:
-          "https://filehub-oss.oss-cn-beijing.aliyuncs.com/archives/oss-test.json",
-        fileType: "application.json",
-        fileSize: 24,
-        fileLastUpdateUser: {
-          nickname: "Admin"
-        },
-        fileLastUpdateTime: "2020-04-14 13:38:34"
-      */
       },
       files: [],
       responseResult: {},
