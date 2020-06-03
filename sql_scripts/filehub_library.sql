@@ -110,6 +110,13 @@ CREATE TABLE IF NOT EXISTS `filehub`.`library_collaborator`
 CREATE INDEX `library_collaborator_uid_index`
     ON `library_collaborator` (`uid`);
 
+INSERT INTO `filehub`.`library_collaborator` (`id`, `library_id`, `uid`)
+VALUES (1, 1, 2);
+INSERT INTO `filehub`.`library_collaborator` (`id`, `library_id`, `uid`)
+VALUES (2, 2, 3);
+INSERT INTO `filehub`.`library_collaborator` (`id`, `library_id`, `uid`)
+VALUES (3, 3, 2);
+
 CREATE TABLE IF NOT EXISTS `filehub`.`library_file`
 (
     `id`         INT AUTO_INCREMENT

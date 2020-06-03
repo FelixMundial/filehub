@@ -21,6 +21,18 @@ public class LibraryServiceImpl implements LibraryService {
     private LibraryMapper libraryMapper;
 
     @Override
+    public Library findLibraryById(Long libraryId) {
+        return libraryMapper.selectByPrimaryKey(libraryId);
+    }
+
+    @Override
+    public Library findLibraryByName(String libraryName) {
+        Library library = new Library();
+        library.setLibraryName(libraryName);
+        return libraryMapper.selectOne(library);
+    }
+
+    @Override
     public List<Library> findTopLibraries(Integer minFollowersCount) {
         return libraryMapper.findAllByFollowersCountGreaterThanOrEqualToOrderByFollowersCountDesc(minFollowersCount);
     }

@@ -51,7 +51,7 @@ public class UserAuthenticationSuccessHandler extends SavedRequestAwareAuthentic
         log.info(authentication.getName() + "用户登录成功！");
         String encodedToken = "";
 
-        if (authentication instanceof OAuth2Authentication) {
+        /*if (authentication instanceof OAuth2Authentication) {
             String authorization = request.getHeader("Authorization");
             if (authorization == null || !authorization.startsWith("Basic ")) {
                 throw new UnapprovedClientAuthenticationException("请求头中无client信息");
@@ -76,7 +76,7 @@ public class UserAuthenticationSuccessHandler extends SavedRequestAwareAuthentic
             OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
 
             OAuth2AccessToken token = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
-        }
+        }*/
 
         /*
         普通认证，将Authentication对象持久化进入token

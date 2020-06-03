@@ -18,9 +18,9 @@ zuul:
   ribbon:
     eager-load:
       enabled: true
-  host:
-    connect-timeout-millis: 60000
-    socket-timeout-millis: 120000
+  #  host:
+  #    connect-timeout-millis: 60000
+  #    socket-timeout-millis: 120000
   add-host-header: true
   routes:
     uaa-service:

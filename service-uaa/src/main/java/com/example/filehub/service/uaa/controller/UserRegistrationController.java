@@ -42,7 +42,7 @@ public class UserRegistrationController {
             }
         } else {
             return BaseResultFactory.getFailureResult(
-                    HttpStatus.IM_USED.value(), String.format("%s用户注册失败：%s", userAccountInfo.getUserLoginName(), "该用户已被注册！")
+                    HttpStatus.SERVICE_UNAVAILABLE.value(), String.format("%s用户注册失败：%s", userAccountInfo.getUserLoginName(), "该用户已被注册！")
             );
         }
 

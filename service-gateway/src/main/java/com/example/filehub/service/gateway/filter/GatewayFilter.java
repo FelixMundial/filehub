@@ -26,8 +26,8 @@ import java.util.List;
  * @date 2020/4/28
  * @deprecated
  */
-@Slf4j
-@Component
+//@Slf4j
+//@Component
 public class GatewayFilter extends ZuulFilter {
     @Override
     public String filterType() {

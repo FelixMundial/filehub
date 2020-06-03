@@ -6,7 +6,11 @@ import com.example.filehub.commons.entity.Library;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface LibraryService{
+public interface LibraryService {
+    Library findLibraryById(Long libraryId);
+
+    Library findLibraryByName(String libraryName);
+
     List<Library> findTopLibraries(Integer minFollowersCount);
 
     List<Library> findNewLibraries(LocalDateTime now);
