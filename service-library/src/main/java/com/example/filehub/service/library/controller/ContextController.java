@@ -1,6 +1,6 @@
 package com.example.filehub.service.library.controller;
 
-import com.example.filehub.common.service.service.CommonSecurityUtil;
+import com.example.filehub.common.service.util.CommonSecurityUtil;
 import com.example.filehub.commons.global.dto.BaseResult;
 import com.example.filehub.commons.global.dto.factory.BaseResultFactory;
 import org.springframework.http.HttpStatus;

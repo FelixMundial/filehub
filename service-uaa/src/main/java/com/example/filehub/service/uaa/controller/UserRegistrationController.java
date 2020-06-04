@@ -1,5 +1,6 @@
 package com.example.filehub.service.uaa.controller;
 
+import com.example.filehub.commons.constant.MiscConstant;
 import com.example.filehub.commons.global.dto.BaseResult;
 import com.example.filehub.commons.global.dto.factory.BaseResultFactory;
 import com.example.filehub.commons.entity.user.UserAccountInfo;
@@ -21,9 +22,9 @@ public class UserRegistrationController {
     @Autowired
     private UserService userService;
 
-//    @CrossOrigin
-    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    public BaseResult login(@Validated @RequestBody UserAccountInfo userAccountInfo, BindingResult bindingResult) {
+    //    @CrossOrigin
+    @PostMapping(value = "/register", consumes = MiscConstant.CONTENT_TYPE_JSON)
+    public BaseResult register(@Validated @RequestBody UserAccountInfo userAccountInfo, BindingResult bindingResult) {
         if (bindingResult.hasErrors() && bindingResult.getFieldError() != null) {
             final String errorMessage = bindingResult.getFieldError().getDefaultMessage();
             return BaseResultFactory.getFailureResult(

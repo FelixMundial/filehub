@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author yinfelix
@@ -13,7 +14,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OssObjectInfo {
+public class OssObject {
     private String fileName;
 
     private String fileUrl;
@@ -27,4 +28,6 @@ public class OssObjectInfo {
     private String fileStatus;
 
     private Date fileLastModifiedDate;
+
+    private List<Long> fileParentLibraryIds;
 }

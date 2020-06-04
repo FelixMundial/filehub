@@ -1,6 +1,7 @@
 package com.example.filehub.service.library.controller;
 
-import com.example.filehub.common.service.service.CommonSecurityUtil;
+import com.example.filehub.common.service.util.CommonSecurityUtil;
+import com.example.filehub.commons.constant.MiscConstant;
 import com.example.filehub.commons.entity.Library;
 import com.example.filehub.commons.global.dto.BaseResult;
 import com.example.filehub.commons.global.dto.factory.BaseResultFactory;
@@ -33,7 +34,6 @@ public class LibraryController {
 
     @ApiImplicitParams(value = {})
     @ApiOperation("展示最热项目")
-    @PreAuthorize("hasAnyAuthority('role_admin', 'role_user', 'role_guest')")
     @GetMapping("/top")
     public BaseResult displayTopLibraries() {
         return BaseResultFactory.getSuccessResultWithData(
@@ -43,7 +43,6 @@ public class LibraryController {
 
     @ApiImplicitParams(value = {})
     @ApiOperation("展示最新项目")
-    @PreAuthorize("hasAnyAuthority('role_admin0', 'role_admin', 'role_vip', 'role_guest')")
     @GetMapping("/new")
     public BaseResult displayNewLibraries() {
         return BaseResultFactory.getSuccessResultWithData(
@@ -53,7 +52,7 @@ public class LibraryController {
 
     @ApiImplicitParams(value = {@ApiImplicitParam(name = "uid", value = "用户ID", dataType = "java.lang.Long")})
     @ApiOperation("展示指定用户所有项目")
-    @PreAuthorize("hasAnyAuthority('role_admin0', 'role_admin', 'role_vip')")
+    @PreAuthorize("hasAnyAuthority('role_admin', 'role_user')")
     @GetMapping("/user/{uid}")
     public BaseResult displayUserLibraries(@PathVariable("uid") Long uid) {
         return BaseResultFactory.getSuccessResultWithData(
@@ -63,7 +62,7 @@ public class LibraryController {
 
     @ApiImplicitParams(value = {@ApiImplicitParam(name = "libraryId", value = "项目ID", dataType = "java.lang.Long")})
     @ApiOperation("展示指定项目内所有文件")
-    @PreAuthorize("hasAnyAuthority('role_admin0', 'role_admin', 'role_vip')")
+    @PreAuthorize("hasAnyAuthority('role_admin', 'role_user')")
     @GetMapping("/{libraryId}/files")
     public BaseResult displayFilesInLibrary(@PathVariable("libraryId") Long libraryId) {
         return BaseResultFactory.getSuccessResultWithData(
@@ -72,8 +71,8 @@ public class LibraryController {
     }
 
     @ApiOperation("创建项目")
-    @PreAuthorize("hasAnyAuthority('role_admin0', 'role_admin', 'role_vip')")
-    @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @PreAuthorize("hasAnyAuthority('role_admin', 'role_user')")
+    @PostMapping(value = "/save", consumes = MiscConstant.CONTENT_TYPE_JSON)
     public BaseResult createLibrary(@Validated @RequestBody Library library, BindingResult bindingResult) {
         if (bindingResult.hasErrors() && bindingResult.getFieldError() != null) {
             final String errorMessage = bindingResult.getFieldError().getDefaultMessage();
@@ -87,7 +86,10 @@ public class LibraryController {
          */
         Library tempLibrary = libraryService.findLibraryByName(library.getLibraryName());
         if (tempLibrary == null) {
-            tempLibrary = libraryService.createLibrary(library, (Long) CommonSecurityUtil.getSecurityPrincipal().get("uid"));
+            tempLibrary = libraryService.createLibrary(
+                    library,
+                    ((Integer) CommonSecurityUtil.getSecurityPrincipal().get("uid")).longValue()
+            );
             if (tempLibrary != null) {
                 return BaseResultFactory.getSuccessResultWithMessage(String.format("%s项目创建成功", library.getLibraryName()));
             }

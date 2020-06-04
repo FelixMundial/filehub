@@ -1,15 +1,15 @@
 package com.example.filehub.service.library.controller;
 
+import com.example.filehub.common.service.util.CommonSecurityUtil;
 import com.example.filehub.commons.constant.MiscConstant;
 import com.example.filehub.commons.entity.File;
-import com.example.filehub.commons.entity.oss.OssObjectInfo;
+import com.example.filehub.commons.entity.oss.OssObject;
 import com.example.filehub.commons.global.dto.BaseResult;
 import com.example.filehub.commons.global.dto.factory.BaseResultFactory;
 import com.example.filehub.service.library.service.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Map;
 
 /**
  * @author yinfelix
@@ -30,22 +29,22 @@ public class FileController {
     @Autowired
     private FileService fileService;
 
-    @PostMapping(value = "/save", consumes = MiscConstant.CONTENT_TYPE_JSON)
-    public BaseResult handleFileUploading(@RequestBody OssObjectInfo info) {
+    @PostMapping(value = "/", consumes = MiscConstant.CONTENT_TYPE_JSON)
+    public BaseResult handleFileUploading(@RequestBody OssObject fileInfo) {
         File file = new File(
-//                info.getFileEtag(),
-                info.getFileUrl(),
-                info.getFileName(),
-                info.getFileUrl(),
-                info.getFileType(),
-                Long.parseLong(info.getFileSize()),
-                LocalDateTime.ofInstant(info.getFileLastModifiedDate().toInstant(), ZoneId.systemDefault())
+                /*fileInfo.getFileEtag(),*/
+                fileInfo.getFileUrl(),
+                fileInfo.getFileName(),
+                fileInfo.getFileUrl(),
+                fileInfo.getFileType(),
+                Long.parseLong(fileInfo.getFileSize()),
+                LocalDateTime.ofInstant(fileInfo.getFileLastModifiedDate().toInstant(), ZoneId.systemDefault())
         );
 
         int saveUploadedFileInfo = fileService.saveUploadedFileInfo(
                 file,
-                Integer.toUnsignedLong((Integer) ((Map) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).get("uid")),
-                1L
+                ((Integer) CommonSecurityUtil.getSecurityPrincipal().get("uid")).longValue(),
+                fileInfo.getFileParentLibraryIds().get(0)
         );
         if (saveUploadedFileInfo == 0) {
             return BaseResultFactory.getFailureResult(HttpStatus.SERVICE_UNAVAILABLE.value(), "文件上传信息落库失败！");

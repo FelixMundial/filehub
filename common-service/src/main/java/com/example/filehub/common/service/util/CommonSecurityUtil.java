@@ -1,4 +1,4 @@
-package com.example.filehub.common.service.service;
+package com.example.filehub.common.service.util;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
