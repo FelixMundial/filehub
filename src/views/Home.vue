@@ -64,7 +64,7 @@ export default {
   },
   created() {
     this.axios
-      .get("/library/explore/top", {
+      .get("/library/top", {
         headers: {
           loadingText: "努力加载中..."
         }
@@ -72,7 +72,6 @@ export default {
       .then(validResponse => {
         this.responseResult = validResponse.data;
         if (this.responseResult.statusCode === 200) {
-          console.log("home", this.responseResult.data[0]);
           this.responseResult.data.forEach(item => {
             this.library.libraryId = item.libraryId;
             this.library.libraryName = item.libraryName;

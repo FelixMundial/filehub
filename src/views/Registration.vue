@@ -92,7 +92,7 @@ export default {
           },
           {
             headers: {
-              loadingText: "用户注册中，请稍事休息..."
+              loadingText: "用户注册中，请稍候..."
             }
           }
         )

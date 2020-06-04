@@ -47,6 +47,7 @@ import { getPolicy } from "../../util/policy";
 
 export default {
   name: "FileUploading",
+  props: ["libraryId"],
   computed: {
     fileList() {
       return [
@@ -145,14 +146,15 @@ export default {
 
       this.axios
         .post(
-          "/library/file/save",
+          "/library/file/",
           {
             fileName: file.name,
             fileUrl: fileUrl,
             fileSize: file.size,
             fileType: file.raw.type,
             fileStatus: file.status,
-            fileLastModifiedDate: file.raw.lastModifiedDate
+            fileLastModifiedDate: file.raw.lastModifiedDate,
+            fileParentLibraryIds: [this.libraryId]
           },
           {
             headers: {
@@ -182,6 +184,13 @@ export default {
     },
     submitUpload() {
       this.$refs.upload.submit();
+    }
+  },
+  watch: {
+    /*异步监听父组件所传值*/
+    libraryId: function(newVal, oldVal) {
+      this.libraryId = newVal;
+      // console.log("this.libraryId", [this.libraryId]);
     }
   }
 };

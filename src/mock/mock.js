@@ -16,10 +16,11 @@ Mock.mock("http://localhost:7000/uaa/login", (req, res) => {
   };
 });
 
-Mock.mock("http://localhost:7000/library/explore/top", (req, res) => {
+Mock.mock("http://localhost:7000/library/top", (req, res) => {
   let libraries = [];
   for (let i = 0; i < Random.integer(5, 20); i++) {
     let library = {
+      libraryId: 1,
       followersCount: Random.integer(0, 999),
       libraryCreationTime: Random.datetime("yyyy-MM-dd HH:mm:ss"),
       libraryDesc: Random.sentence(8, 20),
@@ -40,11 +41,11 @@ Mock.mock("http://localhost:7000/library/explore/top", (req, res) => {
   };
 });
 
-Mock.mock("http://localhost:7000/library/explore/top", (req, res) => {
+Mock.mock("http://localhost:7000/library/1/files", (req, res) => {
   let files = [];
   for (let i = 0; i < Random.integer(5, 20); i++) {
     let file = {
-      fileDisplayName: Mock.word() + "_" + Mock.word() + ".json",
+      fileDisplayName: Random.word() + "_" + Random.word() + ".json",
       fileUrl: "",
       fileType: "application.json",
       fileSize: Random.integer(20, 999),

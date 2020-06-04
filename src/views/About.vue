@@ -4,7 +4,7 @@
       <main-header />
     </el-header>
     <el-main class="global-container">
-      <div class="about">
+      <div>
         <h1>This is an about page</h1>
       </div>
     </el-main>

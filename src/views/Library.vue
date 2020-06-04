@@ -4,7 +4,7 @@
       <main-header />
     </el-header>
     <el-main class="global-container">
-      <FileUploading />
+      <FileUploading :libraryId="currentLibraryId" />
       <div class="file-list-container">
         <h1 class="file-list-title">
           <i class="el-icon-folder" style="margin: 10px"></i
@@ -103,12 +103,14 @@ export default {
       activeCollapseItem: ["1"],
       isPreviewDialogVisible: false,
       previewedFile: {},
-      fileContent: ""
+      fileContent: "",
+      currentLibraryId: ""
     };
   },
   mounted() {
+    this.currentLibraryId = this.$route.query.libraryId;
     this.axios
-      .get("/library/" + this.$route.query.libraryId + "/files", {
+      .get("/library/" + this.currentLibraryId + "/files", {
         headers: {
           loadingText: "努力加载中..."
         }

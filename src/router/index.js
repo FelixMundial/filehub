@@ -44,6 +44,10 @@ const routes = [
     },
     component: () =>
       import(/* webpackChunkName: "library" */ "../views/Library")
+  },
+  {
+    path: "*",
+    component: () => import("../views/NotFound")
   }
 ];
 
